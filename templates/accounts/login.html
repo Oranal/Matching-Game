@@ -1,13 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log_in</title>
+
+  <meta charset="UTF-8">
+  <title>Login Screen</title>
+  <link rel="stylesheet" type="text/css" href='{% static "css/style.css"%}'>
+  
+  <script>
+    window.console = window.console || function(t) {};
+    window.open = function(){ console.log('window.open is disabled.'); };
+    window.print = function(){ console.log('window.print is disabled.'); };
+    if (false) {
+      window.ontouchstart = function(){};
+    }
+  </script>
+
 </head>
+
 <body>
-    <h1>Log in</h1>
-    
+
+  <div class="wrapper">
+	<div class="container">
+		<h1>כניסה</h1>
+
+		<form class="form">
+			<input type="text" placeholder="שם משתמש" />
+			<input type="password" placeholder="סיסמה" />
+			<button type="submit" id="login-button">התחבר</button>
+		</form>
+	</div>
+
+	<!--- for more background effect, just  delete this comment line, thank you
+	
+	<ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	
+	-->
+</div>
+
+  <script src='js/jquery.js'></script>
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage('resize', "*");
+    }
+  </script>
+
+  <script src="js/timeout.js"></script>
+  <script>
+    $('#login-button').click(function (event) {
+    event.preventDefault();
+    $('form').fadeOut(800);
+    $('.wrapper').addClass('form-success');
+});
+
+  </script>
+
 </body>
+
 </html>
