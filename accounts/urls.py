@@ -3,4 +3,5 @@ from accounts import views
 
 urlpatterns = [
     url(r'^login', views.login, name='login'),
+    
 ]
