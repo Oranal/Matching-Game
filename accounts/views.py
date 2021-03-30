@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from random import *
 from accounts.models import *
+from accounts import forms
 
-# Create your views here.
 
 def login(request):
-    my_dict = {'insert_me':str(randint(1,5))}
-    return render(request, 'accounts/login.html',context=my_dict)
+    form = forms.FormLogin()
+    
+    return render(request, 'accounts/login.html', {'form':form})
+    

@@ -20,5 +20,5 @@ from accounts import urls, views
 urlpatterns = [
     url(r'admin/', admin.site.urls),
     url(r'accounts/', include('accounts.urls')),
-    url(r'^$', views.login, name = 'login'),
+    url(r'^$',views.login, name = 'login'),
 ]

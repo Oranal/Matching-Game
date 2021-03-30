@@ -26,14 +26,14 @@
 	<div class="container">
 		<h1>כניסה</h1>
 
-		<form class="form">
-			<input type="text" placeholder="שם משתמש" />
-			<input type="password" placeholder="סיסמה" />
+		<form method="post">
+            {{form.as_p}}
+            {% csrf_token %}
 			<button type="submit" id="login-button">התחבר</button>
 		</form>
 	</div>
 
-	<!--- for more background effect, just  delete this comment line, thank you
+	
 	
 	<ul class="bg-bubbles">
 		<li></li>
@@ -48,7 +48,7 @@
 		<li></li>
 	</ul>
 	
-	-->
+
 </div>
 
   <script src='js/jquery.js'></script>
