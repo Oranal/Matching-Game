@@ -30,6 +30,8 @@
             {{form.as_p}}
             {% csrf_token %}
 			<button type="submit" id="login-button">התחבר</button>
+            <br>
+            {{error_message}}
 		</form>
 	</div>
 
