@@ -8,6 +8,7 @@ from accounts import forms
 def login(request):
     form = forms.FormLogin()
     connect = False
+    print('\n', request, '\n')
     if request.POST:
         username = request.POST['UserName']
         password = request.POST['Password']
@@ -24,13 +25,13 @@ def login(request):
             elif user['role'] == 'Child':
                 return render(request, 'accounts/student_dashboard.html', user)
             elif user['role'] == 'Administrator':
-                #return admin_dashboard(request, user)
+                # return admin_dashboard(request, user)
                 return render(request, 'accounts/admin_dashboard.html', {'user': user, 'accounts': Account.objects.values('institution').distinct()})
         
     return render(request, 'accounts/login.html', {'form':form, 'error_message': ''})
 
 
-def admin_dashboard(request, user):
+def admin_dashboard(request):
     print("123456\n\n\n\n\n\n\n")
     form = forms.KindergardenForm()
     if request.POST:

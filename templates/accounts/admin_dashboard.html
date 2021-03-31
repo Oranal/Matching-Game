@@ -10,8 +10,10 @@
     <h1>Admin dashboard: </h1>
     <h2>hello {{user.first_name}}</h2>
     <div class="container">
-        <form action="admin_dashboard()">
-		    <button type="submit">הוסף מוסד</button>
+        <form>
+            {{form1.as_p}}
+            {% csrf_token %}
+		    <input type="submit" value="הוסף מוסד">
         </form>
 	</div>
     <div>
