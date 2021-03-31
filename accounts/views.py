@@ -19,9 +19,9 @@ def login(request):
         if not connect:
             return render(request, 'accounts/login.html', {'form':form, 'error_message':'invalid username or password'})
         else:
-            if user['role'] == 'teacher':
+            if user['role'] == 'Kindergarden':
                 return render(request, 'accounts/teacher_dashboard.html', user)
-            elif user['role'] == 'student':
+            elif user['role'] == 'Child':
                 return render(request, 'accounts/student_dashboard.html', user)
         
     return render(request, 'accounts/login.html', {'form':form, 'error_message': ''})
