@@ -1,39 +1,63 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
+
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href='{% static "css/admin.css"%}'>
     <title>Admin's Page</title>
 </head>
+
+
+
 <body>
-    <h1>Admin dashboard: </h1>
-    <h2>hello {{user.first_name}}</h2>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Admin-Dashboard</a>
+    </div>
+    
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+    </ul>
+  </div>
+</nav>
+
+    
+        <div class="container">
+            {% if accounts%}
+            <table>
+                <thead>
+                    <th>institution</th>
+                </thead>
+                <tbody>
+                    {% for inst in accounts %}
+                    <tr>
+                        <td><a href="#">{{inst.institution}}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {%else %}
+            <p>NO INSTITUTIONS TO SHOW.</p>
+            {% endif %}
+    </div>
+    
+    <h2>Hello {{user.first_name}}</h2>
     <div class="container">
-        <form method="post">
+        <form method="post" class="institution">
             {{form1.as_p}}
             {% csrf_token %}
-		    <input type="submit" value="הוסף מוסד">
+		    <input type="submit" class="btn btn-primary"value="הוסף מוסד">
         </form>
 	</div>
-    <div>
-        {% if accounts%}
-        <table>
-            <thead>
-                <th>institution</th>
-            </thead>
-            <tbody>
-                {% for inst in accounts %}
-                <tr>
-                    <td><a href="#">{{inst.institution}}</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {%else %}
-        <p>NO INSTITUTIONS TO SHOW.</p>
-        {% endif %}
-    </div>
      
 </body>
 </html>

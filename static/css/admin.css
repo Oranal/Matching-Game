@@ -1,0 +1,26 @@
+table,tbody,th {
+    text-align: center;
+    position: center;
+    font-size: 30px;
+}
+
+h1,h2
+{
+    text-align:center;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px 0;
+    height: 200px;
+    text-align: -webkit-center;
+  }
+
+.center {
+position: absolute;
+top: 50%;
+width: 100%;
+text-align: center;
+font-size: 18px;
+}
