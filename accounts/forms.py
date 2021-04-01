@@ -13,3 +13,6 @@ class KindergardenForm(forms.Form):
     Institution = forms.CharField()
     role = 'Kindergarden'
 
+    def get_role(self):
+        return self.role
+

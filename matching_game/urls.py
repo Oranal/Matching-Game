@@ -18,7 +18,8 @@ from django.conf.urls import url, include
 from accounts import urls, views
 
 urlpatterns = [
+    url(r'^$',views.log_in, name = 'login'),
     url(r'admin/', admin.site.urls),
+    url(r'^admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
     url(r'accounts/', include('accounts.urls')),
-    url(r'^$',views.login, name = 'login'),
 ]
