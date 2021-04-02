@@ -15,54 +15,58 @@
 </head>
 
 
-
 <body>
-
-    <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-        <a class="navbar-brand" href="#">Admin-Dashboard</a>
-        </div>
-        
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-        </ul>
-
-         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
-        </ul>
-    </div>
-    </nav>
-
-    <div class="institution">
-        <h2>Hello {{user.first_name}}</h2>
-        <div class="container">
-            <form method="post" >
-                {{form1.as_p}}
-                {% csrf_token %}
-		        <input type="submit" class="btn btn-primary"value="הוסף מוסד">
-            </form>
-	    </div>
-    </div>
-
     
+    <!-- {% if user.username == 'admin'%} -->
 
-    <div class="institdrop">
-        <div class="dropdown">
-            {% if accounts%}
-        <button class="dropbtn">Institution</button>
-            <div class="dropdown-content">
-                {% for inst in accounts %}
-                    <p><a href="#">{{inst.institution}}</a></p>
-                {% endfor %}
+        <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <a class="navbar-brand" href="#">Admin-Dashboard</a>
             </div>
-            {%else %}
-                <p>NO INSTITUTIONS TO SHOW.</p>
-            {% endif %}
-        </div>
-     </div>
+            
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
 
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+            </ul>
+        </div>
+        </nav>
+
+        <div class="institution">
+            <h2>Hello {{user.first_name}}</h2>
+            <div class="container">
+                <form method="post" >
+                    {{form1.as_p}}
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary"value="הוסף מוסד">
+                </form>
+            </div>
+        </div>
+
+        
+
+        <div class="institdrop">
+            <div class="dropdown">
+                {% if accounts%}
+            <button class="dropbtn">Institution</button>
+                <div class="dropdown-content">
+                    {% for inst in accounts %}
+                        <p><a href="#">{{inst.institution}}</a></p>
+                    {% endfor %}
+                </div>
+                <!-- {%else %} -->
+                    <!-- <p>NO INSTITUTIONS TO SHOW.</p> -->
+                <!-- {% endif %} -->
+            </div>
+        </div>
+        {%else%}
+            <h1>NO ACCESS TO ADMIN DASHBOARD</h1>
+        {%endif%}
 
      
 </body>
+
 </html>

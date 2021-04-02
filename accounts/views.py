@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from random import *
 from accounts.models import *
@@ -12,6 +12,8 @@ def log_in(request):
         username = request.POST['UserName']
         password = request.POST['Password']
 
+        
+
         for user in Account.objects.values():
             if user['username'] == username and user['password'] == password:
                 connect = True
@@ -24,7 +26,10 @@ def log_in(request):
             elif user['role'] == 'Child':
                 return render(request, 'accounts/student_dashboard.html', user)
             elif user['role'] == 'Administrator':
-                return HttpResponseRedirect('/admin_dashboard')
+                # return redirect('/admin_dashboard', user=user)
+                response = HttpResponseRedirect('/admin_dashboard')
+                # response['user'] = user
+                return response
                 return render(request, 'accounts/admin_dashboard.html', {'user': user, 'accounts': Account.objects.values('institution').distinct()})
         
     return render(request, 'accounts/login.html', {'form':form, 'error_message': ''})
@@ -35,7 +40,7 @@ def admin_dashboard(request):
     for user in Account.objects.values():
             if user['username'] == 'admin':
                 break
-    print(user, "\n\n")
+    print("        ", request.headers.get('user'), "\n\n")
     if request.method == 'POST':
         firstname_ = request.POST['FirstName']
         lastname_ = request.POST['LastName']
@@ -49,4 +54,4 @@ def admin_dashboard(request):
         django.setup()
         usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=institution_, role=form.get_role())[0]
         usr.save()
-    return render(request, 'accounts/admin_dashboard.html', {'form1': form, 'user': user, 'accounts': Account.objects.values('institution').distinct()})
+    return render(request, 'accounts/admin_dashboard.html', {'form1': form, 'user':user, 'accounts': Account.objects.values('institution').distinct()})
