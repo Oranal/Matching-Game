@@ -1,17 +1,26 @@
 pipeline {
-    agent 
-        { 
-        docker
-         {
-              image 'python:3.9.1' 
-         } 
-        }
+    agent { 
+        docker{
+            image 'python:3.9.1' 
+        } 
+    }
     stages {
         stage('build') 
         {
             steps 
             {
-                sh 'python manage.py runserver'
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh 'python -m pip install requirements.txt'
+                }
+            }
+        }
+        stage('Test') 
+        {
+            steps 
+            {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh 'python -m manage.py test'
+                }
             }
         }
     }
