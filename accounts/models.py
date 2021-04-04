@@ -16,3 +16,13 @@ class Account(models.Model):
 
     def __str__(self):
         return self.username
+    
+    def get_permition(self):
+        if self.role == 'Administrator':
+            return 'All'
+        if self.role == 'Kindergarden':
+            return 'Limited'
+        if self.role == 'Child':
+            return 'Player'
+        else:
+            return 'ERROR'
