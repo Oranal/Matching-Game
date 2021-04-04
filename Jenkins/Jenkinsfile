@@ -13,8 +13,9 @@ pipeline {
                     sh 'python -m pip install --upgrade pip --user'
                     sh 'python -m pip install -r requirements.txt'
 
-                    sh 'python manage.py makemigrations'
-                    sh 'python manage.py migrate'
+                    // sh 'python manage.py makemigrations'
+                    // sh 'python manage.py migrate'
+                    //pipeline build command to check later
                 }
             }
         }
