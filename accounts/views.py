@@ -55,3 +55,22 @@ def admin_dashboard(request):
         usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=institution_, role=form.get_role())[0]
         usr.save()
     return render(request, 'accounts/admin_dashboard.html', {'form1': form, 'user':user, 'accounts': Account.objects.values('institution').distinct()})
+
+
+def institutions(request):
+    if request.GET:
+        my_bag.set('institution', request.GET['institution'])
+    form = forms.ChildForm()
+    if request.POST:
+        firstname_ = request.POST['FirstName']
+        lastname_ = request.POST['LastName']
+        username_ = request.POST['UserName']
+        password_ = request.POST['Password']
+    
+        import os
+        import django
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
+        django.setup()
+        usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=my_bag.get('institution'), role=form.get_role(), rating = form.get_rating())[0]
+        usr.save()
+    return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values()})
