@@ -5,9 +5,7 @@ from accounts.models import *
 from accounts import forms
 from accounts.viewbag import view_bag
 
-
 my_bag = view_bag()
-
 
 def login(request):
     form = forms.FormLogin()
@@ -37,11 +35,10 @@ def login(request):
 
 def admin_dashboard(request):
     form = forms.KindergardenForm()
-    for user in Account.objects.values():
-            if user['username'] == 'admin':
-                break
-    print("        ", request.headers.get('user'), "\n\n")
-    if request.method == 'POST':
+    # for user in Account.objects.values():
+    #         if user['username'] == 'admin':
+    #             break
+    if request.POST:
         firstname_ = request.POST['FirstName']
         lastname_ = request.POST['LastName']
         username_ = request.POST['UserName']
@@ -54,13 +51,13 @@ def admin_dashboard(request):
         django.setup()
         usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=institution_, role=form.get_role())[0]
         usr.save()
-    return render(request, 'accounts/admin_dashboard.html', {'form1': form, 'user':user, 'accounts': Account.objects.values('institution').distinct()})
+    return render(request, 'accounts/admin_dashboard.html', {'form': form, 'user':my_bag.get('user'), 'accounts': Account.objects.values('institution').distinct()})
 
 def logout(request):
     my_bag.clear()
     form = forms.FormLogin()
     return render(request, 'accounts/login.html', {'form':form, 'error_message': ''})
-    
+
 def institutions(request):
     if request.GET:
         my_bag.set('institution', request.GET['institution'])
@@ -87,8 +84,13 @@ def child(request):
                     break
     return render(request, 'accounts/child.html', {'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'child_details': my_bag.get('child')})
 
+
 def teacher_dashboard(request):
+    
     return render(request, 'accounts/teacher_dashboard.html', {'user':my_bag.get('user')})
 
 def my_class(request):
     return render(request, 'accounts/my_class.html', {'user':my_bag.get('user')})
+
+
+

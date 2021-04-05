@@ -1,22 +1,22 @@
 table,tbody,th {
-    text-align: center;
-    position: center;
-    font-size: 30px;
+  text-align: center;
+  position: center;
+  font-size: 30px;
 }
 
 h1,h2
 {
-    text-align: center;
-    position: unset;
+  text-align: center;
+  position: unset;
 }
 
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px 0;
-    height: 200px;
-    text-align: -webkit-center;
-  }
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 0;
+  height: 200px;
+  text-align: -webkit-center;
+}
 
 .center {
 position: absolute;
@@ -29,48 +29,56 @@ font-size: 18px;
 
 .institution
 {
-    position: absolute;
-    bottom: 385px;
-    left: -115px;
-    font-size: 18px;
+  position: absolute;
+  bottom: 385px;
+  left: -115px;
+  font-size: 18px;
+}
+
+.child
+{
+  position: absolute;
+  bottom: 120px;
+  left: 30px;
+  font-size: 18px;
 }
 
 
 .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
+  position: relative;
+  display: inline-block;
+}
 
-  .institdrop
-  {
-    position: absolute;
-    bottom: 213px;
-    left: 20px;
-    font-size: 24px;
-  }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.institdrop
+{
+  position: absolute;
+  bottom: 213px;
+  left: 20px;
+  font-size: 24px;
+}
 
 
-  .dropbtn {
-    background-color: #4c6baf;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
+.dropbtn {
+  background-color: #4c6baf;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
   
-    

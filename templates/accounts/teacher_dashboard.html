@@ -1,4 +1,5 @@
-<!DOCTYPE html> {% load static %}
+<!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 
@@ -16,13 +17,13 @@
 <body>
 
     {% if user.username and user.role == 'Kindergarden'%}
-
-    <nav class="navbar navbar-inverse">
+    
+        <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'teacher_dashboard' %}">Kinder Garden-Dashboard</a>
+            <a class="navbar-brand" href="{% url 'teacher_dashboard' %}">Kinder Garden-Dashboard</a>
             </div>
-
+            
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{% url 'my_class' %}">My Class</a></li>
                 <li class="active"><a href="#">Games</a></li>
@@ -32,11 +33,11 @@
                 <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
             </ul>
         </div>
-    </nav>
-    <h2>Hello {{user.first_name}} {{user.last_name}}</h2>
+        </nav>
+        <h2>Hello {{user.first_name}} {{user.last_name}}</h2>
 
 
-    <!-- <div class="institution">
+        <!-- <div class="institution">
             <h2>Hello {{user.first_name}}</h2>
             <div class="container">
                 <form method="post" action ="{% url 'admin_dashboard' %}" >
@@ -47,9 +48,9 @@
             </div>
         </div> -->
 
+        
 
-
-    <!-- <div class="institdrop">
+        <!-- <div class="institdrop">
             <div>
                 {% if accounts%}
             <button class="dropbtn">Institution</button>
@@ -62,7 +63,7 @@
                 {% endif %}
             </div>
         </div> -->
-    <!-- <div class="institdrop">
+        <!-- <div class="institdrop">
             <div>
                 {% if accounts%}
                     <form action="{% url 'institutions'%}" method="get">
@@ -80,12 +81,12 @@
                 {% endif %}
             </div>
         </div>   -->
-    {% else %}
-    <h1>NO ACCESS
-        <br>
-        <br>
-        <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
-    </h1> {% endif %}
+        {% else %} 
+        <h1>NO ACCESS
+            <br>
+            <br>
+            <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
+        </h1>        {% endif %}
 </body>
 
 </html>

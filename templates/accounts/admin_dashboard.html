@@ -14,15 +14,14 @@
     <title>Admin's Page</title>
 </head>
 
-
 <body>
-    
-    <!-- {% if user.username == 'admin'%} -->
 
+    {% if user.username == 'admin' %}
+    
         <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-            <a class="navbar-brand" href="#">Admin-Dashboard</a>
+            <a class="navbar-brand" href="{% url 'admin_dashboard' %}">Admin-Dashboard</a>
             </div>
             
             <ul class="nav navbar-nav">
@@ -30,7 +29,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+                <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
             </ul>
         </div>
         </nav>
@@ -38,8 +37,8 @@
         <div class="institution">
             <h2>Hello {{user.first_name}}</h2>
             <div class="container">
-                <form method="post" >
-                    {{form1.as_p}}
+                <form method="post" action ="{% url 'admin_dashboard' %}" >
+                    {{form.as_p}}
                     {% csrf_token %}
                     <input type="submit" class="btn btn-primary"value="הוסף מוסד">
                 </form>
@@ -48,25 +47,43 @@
 
         
 
-        <div class="institdrop">
-            <div class="dropdown">
+        <!-- <div class="institdrop">
+            <div>
                 {% if accounts%}
             <button class="dropbtn">Institution</button>
                 <div class="dropdown-content">
                     {% for inst in accounts %}
-                        <p><a href="#">{{inst.institution}}</a></p>
+                        <p><a href="{% url 'institutions'%}" >{{inst.institution}}</a></p>
                     {% endfor %}
                 </div>
-                <!-- {%else %} -->
-                    <!-- <p>NO INSTITUTIONS TO SHOW.</p> -->
-                <!-- {% endif %} -->
-            </div>
-        </div>
-        {%else%}
-            <h1>NO ACCESS TO ADMIN DASHBOARD</h1>
-        {%endif%}
 
-     
+                {% endif %}
+            </div>
+        </div> -->
+        <div class="institdrop">
+            <div>
+                {% if accounts%}
+                    <form action="{% url 'institutions'%}" method="get">
+                        {% csrf_token %}
+                        <label for="institution">Choose an institution</label>
+                        <select name="institution" id="institution">
+                            {% for inst in accounts %}
+                                {% if inst.institution != 'System'%}
+                                    <option value={{inst.institution}}>{{inst.institution}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <input type="submit" class="btn btn-primary"value="Go">
+                    </form>
+                {% endif %}
+            </div>
+        </div>  
+        {% else %} 
+        <h1>NO ACCESS
+            <br>
+            <br>
+            <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
+        </h1>        {% endif %}
 </body>
 
 </html>

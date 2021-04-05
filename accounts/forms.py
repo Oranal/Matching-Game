@@ -32,3 +32,4 @@ class ChildForm(forms.Form):
 
     def get_rating(self):
         return self.rating
+

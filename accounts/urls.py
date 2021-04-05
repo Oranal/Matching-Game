@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from accounts import views
+from . import views
 
 urlpatterns = [
     url(r'^$', views.login, name='login'),
@@ -9,5 +9,9 @@ urlpatterns = [
     url(r'^admin_dashboard/child/$', views.child, name='child'),
     url(r'^teacher_dashboard/$', views.teacher_dashboard, name='teacher_dashboard'),
     url(r'^teacher_dashboard/my_class/$', views.my_class, name='my_class'),
+
+
+
+
 
 ]
