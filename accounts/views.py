@@ -61,6 +61,10 @@ def logout(request):
 def institutions(request):
     if request.GET:
         my_bag.set('institution', request.GET['institution'])
+        for teacher_details in Account.objects.values():
+                if teacher_details['institution'] == request.GET['institution']:
+                    my_bag.set('teacher', teacher_details)
+                    break
     form = forms.ChildForm()
     if request.POST:
         firstname_ = request.POST['FirstName']
@@ -74,7 +78,7 @@ def institutions(request):
         django.setup()
         usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=my_bag.get('institution'), role=form.get_role(), rating = form.get_rating())[0]
         usr.save()
-    return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values()})
+    return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher')})
 
 def child(request):
     if request.GET:

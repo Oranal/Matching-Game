@@ -43,6 +43,13 @@ font-size: 18px;
   font-size: 18px;
 }
 
+.teacher
+{
+  position: absolute;
+  bottom: -70px;
+  left: 75px;
+  font-size: 18px;
+}
 
 .dropdown {
   position: relative;
