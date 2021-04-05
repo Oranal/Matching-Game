@@ -6,5 +6,6 @@ urlpatterns = [
     url(r'admin_dashboard/$', views.admin_dashboard, name='admin_dashboard'),
     url(r'^login/$', views.logout, name='logout'),
     url(r'^admin_dashboard/institutions/$', views.institutions, name='institutions'),
+    url(r'^admin_dashboard/child/$', views.child, name='child'),
 
 ]

@@ -78,3 +78,12 @@ def institutions(request):
         usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=my_bag.get('institution'), role=form.get_role(), rating = form.get_rating())[0]
         usr.save()
     return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values()})
+
+def child(request):
+    if request.GET:
+        for child_details in Account.objects.values():
+                if child_details['username'] == request.GET['child']:
+                    my_bag.set('child', child_details)
+                    break
+    return render(request, 'accounts/child.html', {'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'child_details': my_bag.get('child')})
+
