@@ -56,7 +56,11 @@ def admin_dashboard(request):
         usr.save()
     return render(request, 'accounts/admin_dashboard.html', {'form1': form, 'user':user, 'accounts': Account.objects.values('institution').distinct()})
 
-
+def logout(request):
+    my_bag.clear()
+    form = forms.FormLogin()
+    return render(request, 'accounts/login.html', {'form':form, 'error_message': ''})
+    
 def institutions(request):
     if request.GET:
         my_bag.set('institution', request.GET['institution'])

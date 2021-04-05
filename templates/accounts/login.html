@@ -1,74 +1,74 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 
 <html>
 
 <head>
 
-  <meta charset="UTF-8">
-  <title>Login Screen</title>
-  <link rel="stylesheet" type="text/css" href='{% static "css/style.css"%}'>
-  
-  <script>
-    window.console = window.console || function(t) {};
-    window.open = function(){ console.log('window.open is disabled.'); };
-    window.print = function(){ console.log('window.print is disabled.'); };
-    if (false) {
-      window.ontouchstart = function(){};
-    }
-  </script>
+    <meta charset="UTF-8">
+    <title>Login Screen</title>
+    <link rel="stylesheet" type="text/css" href='{% static "css/style.css"%}'>
+
+    <script>
+        window.console = window.console || function(t) {};
+        window.open = function() {
+            console.log('window.open is disabled.');
+        };
+        window.print = function() {
+            console.log('window.print is disabled.');
+        };
+        if (false) {
+            window.ontouchstart = function() {};
+        }
+    </script>
 
 </head>
 
 <body>
 
-  <div class="wrapper">
-	<div class="container">
-		<h1>כניסה</h1>
+    <div class="wrapper">
+        <div class="container">
+            <h1>כניסה</h1>
 
-		<form method="post">
-            {{form.as_p}}
-            {% csrf_token %}
-			<button type="submit" id="login-button">התחבר</button>
-            <br>
-            {{error_message}}
-		</form>
-	</div>
+            <form method="post" action="{% url 'login'%}">
+                {{form.as_p}} {% csrf_token %}
+                <button type="submit" id="login-button">התחבר</button>
+                <br> {{error_message}}
+            </form>
+        </div>
 
-	
-	
-	<ul class="bg-bubbles">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
-	
 
-</div>
 
-  <script src='js/jquery.js'></script>
-  <script>
-    if (document.location.search.match(/type=embed/gi)) {
-      window.parent.postMessage('resize', "*");
-    }
-  </script>
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
 
-  <script src="js/timeout.js"></script>
-  <script>
-    $('#login-button').click(function (event) {
-    event.preventDefault();
-    $('form').fadeOut(800);
-    $('.wrapper').addClass('form-success');
-});
 
-  </script>
+    </div>
+
+    <script src='js/jquery.js'></script>
+    <script>
+        if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage('resize', "*");
+        }
+    </script>
+
+    <script src="js/timeout.js"></script>
+    <script>
+        $('#login-button').click(function(event) {
+            event.preventDefault();
+            $('form').fadeOut(800);
+            $('.wrapper').addClass('form-success');
+        });
+    </script>
 
 </body>
 
