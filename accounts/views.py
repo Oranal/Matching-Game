@@ -3,35 +3,35 @@ from django.http import HttpResponse, HttpResponseRedirect
 from random import *
 from accounts.models import *
 from accounts import forms
+from accounts.viewbag import view_bag
+
+
+my_bag = view_bag()
+
 
 def login(request):
     form = forms.FormLogin()
     connect = False
-    print('\n', request, '\n')
     if request.POST:
         username = request.POST['UserName']
         password = request.POST['Password']
 
-        
-
         for user in Account.objects.values():
             if user['username'] == username and user['password'] == password:
                 connect = True
+                my_bag.set('user', user)
                 break
         if not connect:
             return render(request, 'accounts/login.html', {'form':form, 'error_message':'invalid username or password'})
         else:
             if user['role'] == 'Kindergarden':
-                return render(request, 'accounts/teacher_dashboard.html', user)
+                return render(request, 'accounts/teacher_dashboard.html', {'user':user, })
             elif user['role'] == 'Child':
                 return render(request, 'accounts/student_dashboard.html', user)
             elif user['role'] == 'Administrator':
-                # return redirect('/admin_dashboard', user=user)
-                response = HttpResponseRedirect('/admin_dashboard')
-                # response['user'] = user
-                return response
-                return render(request, 'accounts/admin_dashboard.html', {'user': user, 'accounts': Account.objects.values('institution').distinct()})
-        
+                form1 = forms.KindergardenForm()
+                return render(request, 'accounts/admin_dashboard.html', {'form': form1, 'user': user, 'accounts': Account.objects.values('institution').distinct()})
+    
     return render(request, 'accounts/login.html', {'form':form, 'error_message': ''})
 
 
