@@ -90,3 +90,5 @@ def child(request):
 def teacher_dashboard(request):
     return render(request, 'accounts/teacher_dashboard.html', {'user':my_bag.get('user')})
 
+def my_class(request):
+    return render(request, 'accounts/my_class.html', {'user':my_bag.get('user')})
