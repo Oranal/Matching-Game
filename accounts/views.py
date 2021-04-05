@@ -87,3 +87,6 @@ def child(request):
                     break
     return render(request, 'accounts/child.html', {'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'child_details': my_bag.get('child')})
 
+def teacher_dashboard(request):
+    return render(request, 'accounts/teacher_dashboard.html', {'user':my_bag.get('user')})
+

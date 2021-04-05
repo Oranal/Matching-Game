@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^login/$', views.logout, name='logout'),
     url(r'^admin_dashboard/institutions/$', views.institutions, name='institutions'),
     url(r'^admin_dashboard/child/$', views.child, name='child'),
-
+    url(r'^teacher_dashboard/$', views.teacher_dashboard, name='teacher_dashboard'),
 ]

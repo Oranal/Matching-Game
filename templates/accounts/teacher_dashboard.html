@@ -1,6 +1,7 @@
-<!DOCTYPE html>
-{%load static%}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
+
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,26 +10,82 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href='{% static "css/admin.css"%}'>
-    <title>Theacher's page</title>
+    <title>Admin's Page</title>
 </head>
+
 <body>
 
- <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-        <a class="navbar-brand" href="#">Teacher-dashboard</a>
-        </div>
-        
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-        </ul>
+    {% if user.username and user.role == 'Kindergarden'%}
 
-         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
-        </ul>
-    </div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'teacher_dashboard' %}">Kinder Garden-Dashboard</a>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'my_class' %}">My Class</a></li>
+                <li class="active"><a href="#">Games</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+            </ul>
+        </div>
     </nav>
-    <h2>hello {{first_name}} {{last_name}}</h2>
-    
+    <h2>Hello {{user.first_name}} {{user.last_name}}</h2>
+
+
+    <!-- <div class="institution">
+            <h2>Hello {{user.first_name}}</h2>
+            <div class="container">
+                <form method="post" action ="{% url 'admin_dashboard' %}" >
+                    {{form.as_p}}
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary"value="הוסף מוסד">
+                </form>
+            </div>
+        </div> -->
+
+
+
+    <!-- <div class="institdrop">
+            <div>
+                {% if accounts%}
+            <button class="dropbtn">Institution</button>
+                <div class="dropdown-content">
+                    {% for inst in accounts %}
+                        <p><a href="{% url 'institutions'%}" >{{inst.institution}}</a></p>
+                    {% endfor %}
+                </div>
+
+                {% endif %}
+            </div>
+        </div> -->
+    <!-- <div class="institdrop">
+            <div>
+                {% if accounts%}
+                    <form action="{% url 'institutions'%}" method="get">
+                        {% csrf_token %}
+                        <label for="institution">Choose an institution</label>
+                        <select name="institution" id="institution">
+                            {% for inst in accounts %}
+                                {% if inst.institution != 'System'%}
+                                    <option value={{inst.institution}}>{{inst.institution}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <input type="submit" class="btn btn-primary"value="Go">
+                    </form>
+                {% endif %}
+            </div>
+        </div>   -->
+    {% else %}
+    <h1>NO ACCESS
+        <br>
+        <br>
+        <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
+    </h1> {% endif %}
 </body>
+
 </html>
