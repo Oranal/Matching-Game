@@ -4,7 +4,7 @@ from random import *
 from accounts.models import *
 from accounts import forms
 
-def log_in(request):
+def login(request):
     form = forms.FormLogin()
     connect = False
     print('\n', request, '\n')
