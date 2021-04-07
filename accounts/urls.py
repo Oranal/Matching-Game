@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^admin_dashboard/child/$', views.child, name='child'),
     url(r'^teacher_dashboard/$', views.teacher_dashboard, name='teacher_dashboard'),
     url(r'^teacher_dashboard/my_class/$', views.my_class, name='my_class'),
+    url(r'^teacher_dashboard/teacher_details/$', views.teacher_details, name='teacher_details'),
 
 
 

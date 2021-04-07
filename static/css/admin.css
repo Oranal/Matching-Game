@@ -29,9 +29,9 @@ font-size: 18px;
 
 .institution
 {
-  position: absolute;
-  bottom: 385px;
-  left: -115px;
+  position: relative;
+  bottom: -50px;
+  left: 10px;
   font-size: 18px;
 }
 
@@ -45,9 +45,17 @@ font-size: 18px;
 
 .teacher
 {
-  position: absolute;
-  bottom: -70px;
-  left: 75px;
+  position: relative;
+  bottom: -60px;
+  left: -5px;
+  font-size: 18px;
+}
+
+.old_teacher
+{
+  position: relative;
+  bottom: -200px;
+  left: -5px;
   font-size: 18px;
 }
 
@@ -72,9 +80,9 @@ font-size: 18px;
 
 .institdrop
 {
-  position: absolute;
-  bottom: 213px;
-  left: 20px;
+  position: relative;
+  bottom: -125px;
+  left: 10px;
   font-size: 24px;
 }
 

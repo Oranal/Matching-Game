@@ -46,36 +46,40 @@
             </div>
         </div>
         
-        <div class="teacher">
-            <h2>{{teacher_details.first_name}}'s details</h2>
-            <h3>First name: {{teacher_details.first_name}}</h3>
-            <h3>Last name: {{teacher_details.last_name}}</h3>
-            <h3>User name: {{teacher_details.username}}</h3>
-            <h3>Password: {{teacher_details.password}}</h3>
-
-        </div>
-
+        
         <div class="institdrop">
-            <div>
+            <div class="container">
                 {% if accounts%}
-                    <form action="{% url 'child'%}" method="get">
-                        {% csrf_token %}
-                        <label for="child">Choose a child</label>
-                        <select name="child" id="child">
-                            {% for child in accounts %}
-                                {% if child.role == 'Child' %}
-                                    {% if child.institution == institution_name %}
-                                        <option value={{child.username}}>{{child.first_name}} {{child.last_name}}</option>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                        <input type="submit" class="btn btn-primary"value="Go">
-                    </form>
+                <form action="{% url 'child'%}" method="get">
+                    {% csrf_token %}
+                    <label for="child">Choose a child</label>
+                    <select name="child" id="child">
+                        {% for child in accounts %}
+                        {% if child.role == 'Child' %}
+                        {% if child.institution == institution_name %}
+                        <option value={{child.username}}>{{child.first_name}} {{child.last_name}}</option>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <input type="submit" class="btn btn-primary"value="Go">
+                </form>
                 {% endif %}
             </div>
         </div> 
-
+        <div class="teacher">
+            <div class="container">
+                <form method = 'get' action="{% url 'teacher_details' %}">
+                    <h3>{{teacher_details.first_name}}'s details <input type="submit" class="btn btn-primary"value="עריכה"></h3>
+                    <br>
+                    <h3>First name: {{teacher_details.first_name}}</h3>
+                    <h3>Last name: {{teacher_details.last_name}}</h3>
+                    <h3>User name: {{teacher_details.username}}</h3>
+                    <h3>Password: {{teacher_details.password}}</h3>
+                </form>
+            </div>
+        </div>
+        
         {% else %} 
         <h1>NO ACCESS
             <br>

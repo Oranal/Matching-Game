@@ -62,7 +62,7 @@ def institutions(request):
     if request.GET:
         my_bag.set('institution', request.GET['institution'])
         for teacher_details in Account.objects.values():
-                if teacher_details['institution'] == request.GET['institution']:
+                if teacher_details['institution'] == request.GET['institution'] and teacher_details['role'] == 'Kindergarden':
                     my_bag.set('teacher', teacher_details)
                     break
     form = forms.ChildForm()
@@ -86,7 +86,34 @@ def child(request):
                 if child_details['username'] == request.GET['child']:
                     my_bag.set('child', child_details)
                     break
-    return render(request, 'accounts/child.html', {'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'child_details': my_bag.get('child')})
+    form = forms.ChildEditForm(initial = {'UserName': my_bag.get('child')['username'], 'Password': my_bag.get('child')['password'], 'FirstName': my_bag.get('child')['first_name'], 'LastName': my_bag.get('child')['last_name'], 'rating': my_bag.get('child')['rating'], 'Institution': my_bag.get('child')['institution']})
+    if request.POST:
+        firstname_ = request.POST['FirstName']
+        lastname_ = request.POST['LastName']
+        username_ = request.POST['UserName']
+        password_ = request.POST['Password']
+        institution_ = request.POST['Institution']
+        rating_ = request.POST['rating']
+        import os
+        import django
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
+        django.setup()
+        usr = Account.objects.get(username=my_bag.get('child')['username'])
+        usr.username = username_
+        usr.first_name = firstname_
+        usr.last_name = lastname_
+        usr.password = password_
+        usr.institution = institution_
+        usr.rating = rating_
+        usr.save()
+        for child_details in Account.objects.values():
+                if child_details['username'] == username_:
+                    my_bag.set('child', child_details)
+                    break
+        form = forms.ChildEditForm(initial = {'UserName': my_bag.get('child')['username'], 'Password': my_bag.get('child')['password'], 'FirstName': my_bag.get('child')['first_name'], 'LastName': my_bag.get('child')['last_name'], 'rating': my_bag.get('child')['rating'], 'Institution': my_bag.get('child')['institution']})
+
+
+    return render(request, 'accounts/child.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'child_details': my_bag.get('child')})
 
 
 def teacher_dashboard(request):
@@ -96,5 +123,48 @@ def teacher_dashboard(request):
 def my_class(request):
     return render(request, 'accounts/my_class.html', {'user':my_bag.get('user')})
 
+def teacher_details(request):
+    form = forms.KindergardenForm(initial = {'UserName': my_bag.get('teacher')['username'], 'Password': my_bag.get('teacher')['password'], 'FirstName': my_bag.get('teacher')['first_name'], 'LastName': my_bag.get('teacher')['last_name'], 'Institution': my_bag.get('teacher')['institution']})
+
+    # form = forms.KindergardenForm()
+    print('\n', my_bag.get_all(), '\n\n')
+    if request.GET:
+        print('get\n')
+    elif request.POST:
+        firstname_ = request.POST['FirstName']
+        lastname_ = request.POST['LastName']
+        username_ = request.POST['UserName']
+        password_ = request.POST['Password']
+        institution_ = request.POST['Institution']
+        old_institution = my_bag.get('institution')
+        import os
+        import django
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
+        django.setup()
+        # for usr in Account.objects.values():
+        #     if usr['username'] == my_bag.get('teacher')['username']:
+        #         break
+        usr = Account.objects.get(username=my_bag.get('teacher')['username'])
+        usr.username = username_
+        usr.first_name = firstname_
+        usr.last_name = lastname_
+        usr.password = password_
+        usr.institution = institution_
+        usr.save()
+        for teacher_details in Account.objects.values():
+                if teacher_details['username'] == username_:
+                    my_bag.set('teacher', teacher_details)
+                    my_bag.set('institution', my_bag.get('teacher')['institution'])
+                    break
+        if my_bag.get('institution') != old_institution:
+            for child in Account.objects.values():
+                if child['institution'] == old_institution:
+                    usr = Account.objects.get(username=child['username'])
+                    usr.institution = institution_
+                    usr.save()
+        form = forms.KindergardenForm(initial = {'UserName': my_bag.get('teacher')['username'], 'Password': my_bag.get('teacher')['password'], 'FirstName': my_bag.get('teacher')['first_name'], 'LastName': my_bag.get('teacher')['last_name'], 'Institution': my_bag.get('teacher')['institution']})
+
+
+    return render(request, 'accounts/teacher_details.html', {'form':form, 'user':my_bag.get('user'), 'teacher_details':my_bag.get('teacher')})
 
 

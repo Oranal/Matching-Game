@@ -38,7 +38,7 @@
         <div class="institution">
             <h2>פרטי משתמש חדשים</h2>
             <div class="container">
-                <form method="post" action ="{% url 'child' %}" >
+                <form method="post" action ="{% url 'teacher_details' %}" >
                     {{form.as_p}}
                     {% csrf_token %}
                     <input type="submit" class="btn btn-primary" value="שמור שינויים">
@@ -50,33 +50,25 @@
             <div class="container">
 
                     <h3>פרטי משתמש  עדכניים</h3>
-                    <h3>First name: {{child_details.first_name}}</h3>
-                    <h3>Last name: {{child_details.last_name}}</h3>
-                    <h3>User name: {{child_details.username}}</h3>
-                    <h3>Password: {{child_details.password}}</h3>
-                    <h3>Insitution: {{child_details.institution}}</h3>
-                    <h3>Rating: {{child_details.rating}}</h3>
+                    <h3>First name: {{teacher_details.first_name}}</h3>
+                    <h3>Last name: {{teacher_details.last_name}}</h3>
+                    <h3>User name: {{teacher_details.username}}</h3>
+                    <h3>Password: {{teacher_details.password}}</h3>
+                    <h3>Institution: {{teacher_details.institution}}</h3>
             </div>
 
         </div>
 
-        <!-- <div class="child">
-            <h3>First name: {{child_details.first_name}}</h3>
-            <h3>Last name: {{child_details.last_name}}</h3>
-            <h3>User name: {{child_details.username}}</h3>
-            <h3>Password: {{child_details.password}}</h3>
-            <h3>Insitution: {{child_details.institution}}</h3>
-            <h3>Rating: {{child_details.rating}}</h3>
-
-        </div> -->
-
+         
 
         {% else %} 
         <h1>NO ACCESS
             <br>
             <br>
             <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
-        </h1>        {% endif %}
+        </h1>
+
+        {% endif %}
 </body>
 
 </html>
