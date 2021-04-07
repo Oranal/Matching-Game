@@ -16,9 +16,10 @@
 
 
 <body>
-
+    
     {% if user.username == 'admin' %}
     
+    <div class = 'fullwrapper'>
         <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -35,7 +36,9 @@
         </div>
         </nav>
 
-        <div class="institution">
+
+            
+            <div class="institution">
             <h2>Institution {{institution_name}}</h2>
             <div class="container">
                 <form method="post" action ="{% url 'institutions' %}" >
@@ -79,6 +82,19 @@
                 </form>
             </div>
         </div>
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
         
         {% else %} 
         <h1>NO ACCESS
@@ -86,8 +102,8 @@
             <br>
             <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
         </h1>
-
+        
         {% endif %}
-</body>
-
-</html>
+    </body>
+    
+    </html>
