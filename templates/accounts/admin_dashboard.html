@@ -12,7 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href='{% static "css/admin.css"%}'>
 
-    <title>Administrator's Page</title>
+    <title>{{user.role}}'s Page</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'admin_dashboard' %}">Administrator-Dashboard</a>
+                <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
             </div>
             
             <ul class="nav navbar-nav">
