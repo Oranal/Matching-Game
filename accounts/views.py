@@ -44,13 +44,19 @@ def admin_dashboard(request):
         username_ = request.POST['UserName']
         password_ = request.POST['Password']
         institution_ = request.POST['Institution']
-    
-        import os
-        import django
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
-        django.setup()
-        usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=institution_, role=form.get_role())[0]
-        usr.save()
+        if {'institution': institution_} in Account.objects.values('institution').distinct():
+            return render(request, 'accounts/admin_dashboard.html', {'form': form, 'user':my_bag.get('user'), 'accounts': Account.objects.values('institution').distinct(), 'errorMessage': 'Institution is already exists!'})
+        else: 
+            import os
+            import django
+            os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
+            django.setup()
+            try:
+                usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=institution_, role=form.get_role())[0]
+                usr.save()
+            except:
+                return render(request, 'accounts/admin_dashboard.html', {'form': form, 'user':my_bag.get('user'), 'accounts': Account.objects.values('institution').distinct(), 'errorMessage': 'Username is already exists!'})
+
     return render(request, 'accounts/admin_dashboard.html', {'form': form, 'user':my_bag.get('user'), 'accounts': Account.objects.values('institution').distinct()})
 
 def logout(request):
@@ -76,8 +82,11 @@ def institutions(request):
         import django
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
         django.setup()
-        usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=my_bag.get('institution'), role=form.get_role(), rating = form.get_rating())[0]
-        usr.save()
+        try:
+            usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=my_bag.get('institution'), role=form.get_role(), rating = form.get_rating())[0]
+            usr.save()
+        except:
+            return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher'), 'errorMessage': 'Username is already exists!'})
     return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher')})
 
 def child(request):

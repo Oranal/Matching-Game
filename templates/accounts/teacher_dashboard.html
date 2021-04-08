@@ -37,7 +37,7 @@
         <h2>Hello {{user.first_name}} {{user.last_name}}</h2>
 
 
-        <!-- <div class="institution">
+        <div class="institution">
             <h2>Hello {{user.first_name}}</h2>
             <div class="container">
                 <form method="post" action ="{% url 'admin_dashboard' %}" >
@@ -46,11 +46,11 @@
                     <input type="submit" class="btn btn-primary"value="הוסף מוסד">
                 </form>
             </div>
-        </div> -->
+        </div>
 
         
 
-        <!-- <div class="institdrop">
+        <div class="institdrop">
             <div>
                 {% if accounts%}
             <button class="dropbtn">Institution</button>
@@ -62,8 +62,8 @@
 
                 {% endif %}
             </div>
-        </div> -->
-        <!-- <div class="institdrop">
+        </div>
+        <div class="institdrop">
             <div>
                 {% if accounts%}
                     <form action="{% url 'institutions'%}" method="get">
@@ -80,7 +80,7 @@
                     </form>
                 {% endif %}
             </div>
-        </div>   -->
+        </div>
         {% else %} 
         <h1>NO ACCESS
             <br>

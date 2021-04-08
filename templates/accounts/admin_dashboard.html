@@ -39,6 +39,7 @@
             <div class="institution">
                 <h2>Hello {{user.first_name}}</h2>
                 <div class="container">
+                    <h4 style="color: red">{{ errorMessage }}</h4>
                     <form method="post" action ="{% url 'admin_dashboard' %}" >
                         {{form.as_p}}
                         {% csrf_token %}
@@ -62,6 +63,8 @@
                 {% endif %}
             </div>
         </div> -->
+        <br>
+        <br>
         <div class="institdrop">
             <div class = container>
                 {% if accounts%}
