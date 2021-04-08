@@ -86,12 +86,8 @@ def institutions(request):
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
         django.setup()
         try:
-            print("\n", "before initialization" , "\n")
-            #print(username_, "\n", password_,"\n", lastname_,"\n", firstname_,"\n","\n", form.get_role(),"\n", form.get_rating())
             usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=my_bag.get('teacher')['institution'], role=form.get_role(), rating = form.get_rating())[0]
-            print("\n", "after initialization" , "\n")
             usr.save()
-            print("\n", "after save" , "\n")
         except:
             print("\n\n\n", username_, "\n\n\n")
             return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher'), 'errorMessage': 'Username is already exists!'})
@@ -187,8 +183,12 @@ def teacher_details(request):
 
 def child_delete(request):
     form = forms.ChildForm()
+    import os
+    import django
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
+    django.setup()
     usr = Account.objects.get(username = my_bag.get('child')['username'])
-    print("/n/n/",usr,"/n/n/n")
+    usr.delete()
     return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher')})
 
 
