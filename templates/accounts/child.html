@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 
@@ -17,66 +16,84 @@
 
 <body>
 
-    {% if user.username == 'admin' %}
-    
-        <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
-            </div>
-            
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-            </ul>
+    {% if user.username == 'admin' or user.role == 'Kindergarden' %}
 
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
-            </ul>
-        </div>
+    <div class='fullwrapper'>
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
+                </div>
+
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+                </ul>
+            </div>
         </nav>
 
         <div class="institution">
             <h2>פרטי משתמש חדשים</h2>
             <div class="container">
-                <form method="post" action ="{% url 'child' %}" >
-                    {{form.as_p}}
-                    {% csrf_token %}
+                <form method="post" action="{% url 'child' %}">
+                    {{form.as_p}} {% csrf_token %}
                     <input type="submit" class="btn btn-primary" value="שמור שינויים">
+                </form>
+
+                <form method="GET" action="{% url 'child_delete' %}">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="מחק משתמש">
                 </form>
             </div>
         </div>
-        
+
         <div class="old_teacher">
             <div class="container">
 
-                    <h3>פרטי משתמש  עדכניים</h3>
-                    <h3>First name: {{child_details.first_name}}</h3>
-                    <h3>Last name: {{child_details.last_name}}</h3>
-                    <h3>User name: {{child_details.username}}</h3>
-                    <h3>Password: {{child_details.password}}</h3>
-                    <h3>Insitution: {{child_details.institution}}</h3>
-                    <h3>Rating: {{child_details.rating}}</h3>
+                <h3>פרטי משתמש עדכניים</h3>
+                <h3>First name: {{child_details.first_name}}</h3>
+                <h3>Last name: {{child_details.last_name}}</h3>
+                <h3>User name: {{child_details.username}}</h3>
+                <h3>Password: {{child_details.password}}</h3>
+                <h3>Insitution: {{child_details.institution}}</h3>
+                <h3>Rating: {{child_details.rating}}</h3>
             </div>
 
         </div>
-
-        <!-- <div class="child">
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <!-- <div class="child">
             <h3>First name: {{child_details.first_name}}</h3>
             <h3>Last name: {{child_details.last_name}}</h3>
             <h3>User name: {{child_details.username}}</h3>
             <h3>Password: {{child_details.password}}</h3>
             <h3>Insitution: {{child_details.institution}}</h3>
             <h3>Rating: {{child_details.rating}}</h3>
-
+            
         </div> -->
 
 
-        {% else %} 
-        <h1>NO ACCESS
-            <br>
-            <br>
-            <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
-        </h1>        {% endif %}
+    {% else %}
+    <h1>NO ACCESS
+        <br>
+        <br>
+        <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
+    </h1> {% endif %}
 </body>
 
 </html>

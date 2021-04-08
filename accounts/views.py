@@ -185,3 +185,10 @@ def teacher_details(request):
     return render(request, 'accounts/teacher_details.html', {'form':form, 'user':my_bag.get('user'), 'teacher_details':my_bag.get('teacher')})
 
 
+def child_delete(request):
+    form = forms.ChildForm()
+    usr = Account.objects.get(username = my_bag.get('child')['username'])
+    print("/n/n/",usr,"/n/n/n")
+    return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher')})
+
+
