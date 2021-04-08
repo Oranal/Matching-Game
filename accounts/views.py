@@ -23,7 +23,8 @@ def login(request):
             return render(request, 'accounts/login.html', {'form':form, 'error_message':'invalid username or password'})
         else:
             if user['role'] == 'Kindergarden':
-                return render(request, 'accounts/teacher_dashboard.html', {'user':user, })
+                form1 = forms.ChildForm()
+                return render(request, 'accounts/institutions.html', {'user': user, 'form': form1, 'institutions': Account.objects.values('institution')})
             elif user['role'] == 'Child':
                 return render(request, 'accounts/student_dashboard.html', user)
             elif user['role'] == 'Administrator':
@@ -77,15 +78,20 @@ def institutions(request):
         lastname_ = request.POST['LastName']
         username_ = request.POST['UserName']
         password_ = request.POST['Password']
-    
+
         import os
         import django
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
         django.setup()
         try:
-            usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=my_bag.get('institution'), role=form.get_role(), rating = form.get_rating())[0]
+            print("\n", "before initialization" , "\n")
+            #print(username_, "\n", password_,"\n", lastname_,"\n", firstname_,"\n","\n", form.get_role(),"\n", form.get_rating())
+            usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=institution_, role=form.get_role(), rating = form.get_rating())[0]
+            print("\n", "after initialization" , "\n")
             usr.save()
+            print("\n", "after save" , "\n")
         except:
+            print("\n\n\n", username_, "\n\n\n")
             return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher'), 'errorMessage': 'Username is already exists!'})
     return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher')})
 
