@@ -20,5 +20,8 @@ def main():
 
 
 if __name__ == '__main__':
-    AdminInitialize.admin()
+    try:
+        AdminInitialize.admin()
+    except:
+        print("Migration needed!")
     main()
