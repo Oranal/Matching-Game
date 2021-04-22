@@ -29,3 +29,10 @@ class ChildForm(FormLogin):
 class ChildEditForm(ChildForm):
     Institution = forms.CharField()
     rating = forms.IntegerField()
+
+class SingleForm(forms.Form):
+    data = forms.CharField(label = "")
+
+class DoubleForm(forms.Form):
+    data1 = forms.CharField(label = "")
+    data2 = forms.CharField(label = "")

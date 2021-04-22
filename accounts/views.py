@@ -191,4 +191,55 @@ def child_delete(request):
     usr.delete()
     return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher')})
 
+def games(request):
+    return render(request, 'accounts/games.html', {'user':my_bag.get('user')})
 
+def new_game(request):
+    form = forms.SingleForm()
+    return render(request, 'accounts/new_game.html', {'form' : form, 'user':my_bag.get('user')})
+
+def game_info(request):
+    if request.POST:
+        my_bag.set('category', [request.POST['data'], {}])
+        print(my_bag.get('category'))
+        if my_bag.get('topics'):
+            left = "עוד "+ str(len(my_bag.get('topics'))) + " לפחות"
+        else:
+            left = "עוד "+ str(8) + " לפחות"
+    else:
+        print(str(8-len(my_bag.get('category')[1])))
+        left = "עוד "+ str(8-len(my_bag.get('category')[1])) + " לפחות"
+    form = forms.SingleForm()
+    return render(request, 'accounts/game_info.html', {'massage': left, 'form': form, 'user':my_bag.get('user')})
+
+def game_topic(request):
+    if request.GET:
+        my_bag.get('category')[1][request.GET['data']]=[]
+        my_bag.set('topic', request.GET['data'])
+        form = forms.DoubleForm()
+        print(my_bag.get('category'))
+        return render(request, 'accounts/game_topic.html', {'massage': 'first', 'form': form, 'user':my_bag.get('user')})
+    else:
+        my_bag.get('category')[1][my_bag.get('topic')].append(request.POST['data1'])
+        my_bag.get('category')[1][my_bag.get('topic')].append(request.POST['data2'])
+        form = forms.SingleForm()
+        print(my_bag.get('category'))
+        return render(request, 'accounts/game_topic.html', {'massage': 'extra', 'form': form, 'user':my_bag.get('user')})
+
+def extra_card(request):
+    if request.POST:
+        my_bag.get('category')[1][my_bag.get('topic')].append(request.POST['data'])
+        print(my_bag.get('category'))
+        form = forms.SingleForm()
+        return render(request, 'accounts/game_topic.html', {'massage': 'extra', 'form': form, 'user':my_bag.get('user')})
+    else:
+        print(str(8-len(my_bag.get('category')[1])))
+        left = "עוד "+ str(8-len(my_bag.get('category')[1])) + " לפחות"
+        form = forms.SingleForm()
+    return render(request, 'accounts/game_info.html', {'massage': left, 'form': form, 'user':my_bag.get('user')})
+
+def done_extra(request):
+    print(str(8-len(my_bag.get('category')[1])))
+    left = "עוד "+ str(8-len(my_bag.get('category')[1])) + " לפחות"
+    form = forms.SingleForm()
+    return render(request, 'accounts/game_info.html', {'massage': left, 'form': form, 'user':my_bag.get('user')})

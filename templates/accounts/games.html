@@ -37,53 +37,16 @@
         </nav>
     
             <div class="institution">
-                <h2>Hello {{user.first_name}}</h2>
+                <h2>All Games</h2>
                 <div class="container">
                     <h4 style="color: red">{{ errorMessage }}</h4>
-                    <form method="post" action ="{% url 'admin_dashboard' %}" >
-                        {{form.as_p}}
+                    <form method="post" action ="{% url 'new_game' %}" >
                         {% csrf_token %}
-                        <input type="submit" class="btn btn-primary"value="הוסף מוסד">
+                        <input type="submit" class="btn btn-primary"value="הוסף משחק">
                     </form>
                 </div>
             </div>
-            
-            
-
-            <!-- <div class="institdrop">
-            <div>
-                {% if accounts%}
-            <button class="dropbtn">Institution</button>
-            <div class="dropdown-content">
-                    {% for inst in accounts %}
-                    <p><a href="{% url 'institutions'%}" >{{inst.institution}}</a></p>
-                    {% endfor %}
-                </div>
-                
-                {% endif %}
-            </div>
-        </div> -->
-        <br>
-        <br>
-        <div class="institdrop">
-            <div class = container>
-                {% if accounts%}
-                <form action="{% url 'institutions'%}" method="get">
-                    {% csrf_token %}
-                    <label for="institution">Choose an institution</label>
-                    <select name="institution" id="institution">
-                        {% for inst in accounts %}
-                        {% if inst.institution != 'System'%}
-                        <option value={{inst.institution}}>{{inst.institution}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                    <input type="submit" class="btn btn-primary"value="Go">
-                </form>
-                {% endif %}
-            </div>
-        </div>  
-        
+                    
         <ul class="bg-bubbles">
             <li></li>
             <li></li>
