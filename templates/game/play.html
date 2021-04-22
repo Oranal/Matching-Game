@@ -10,96 +10,123 @@
     <link rel="stylesheet" type="text/css" href='{% static "css/game.css"%}'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
 </head>
 <body>
-  <section class="memory-game">
-    
 
-
-
-    <div class="memory-card" data-framework={{one.2}}>
-        <h1 class="front-face text-stroke" >{{one.0}}</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div>
-    <div class="memory-card" data-framework={{one.2}}>
-        <h1 class="front-face text-stroke">{{one.1}}</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div>
-      
-    <div class="memory-card" data-framework={{two.2}}>
-        <h1 class="front-face text-stroke" >{{two.0}}</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div>
-    <div class="memory-card" data-framework={{two.2}}>
-        <h1 class="front-face text-stroke" >{{two.1}}</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div>
-  
-    <div class="memory-card" data-framework={{three.2}}>
-        <h1 class="front-face text-stroke" >{{three.0}}</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div>
-    <div class="memory-card" data-framework={{three.2}}>
-        <h1 class="front-face text-stroke">{{three.1}}</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div>
+    <div class="fullwrapper">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
+                </div>
+                
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+                </ul>
+            </div>
+        </nav>
+        <section class="memory-game">
+            <div class="memory-card" data-framework={{one.2}}>
+                <p class="front-face text-stroke" >{{one.0}}</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+            <div class="memory-card" data-framework={{one.2}}>
+                <p class="front-face text-stroke">{{one.1}}</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+            
+            <div class="memory-card" data-framework={{two.2}}>
+                <p class="front-face text-stroke" >{{two.0}}</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+            <div class="memory-card" data-framework={{two.2}}>
+                <p class="front-face text-stroke" >{{two.1}}</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
         
-    <div class="memory-card" data-framework={{four.2}}>
-        <h1 class="front-face text-stroke" >{{four.0}}</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
+            <div class="memory-card" data-framework={{three.2}}>
+                <p class="front-face text-stroke" >{{three.0}}</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+            <div class="memory-card" data-framework={{three.2}}>
+                <p class="front-face text-stroke">{{three.1}}</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+                
+            <div class="memory-card" data-framework={{four.2}}>
+                <p class="front-face text-stroke" >{{four.0}}</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+
+            <div class="memory-card" data-framework={{four.2}}>
+                <p class="front-face text-stroke" >{{four.1}}</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+
+            <div class="memory-card" data-framework="9">
+                <p class="front-face text-stroke" >4+5</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+
+            <div class="memory-card" data-framework="9">
+                <p class="front-face text-stroke">7+2</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+                
+            <div class="memory-card" data-framework="5">
+                <p class="front-face text-stroke" >3+2</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+
+            <div class="memory-card" data-framework="5">
+                <p class="front-face text-stroke" >9-4</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+
+            
+        </section>
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
     </div>
-
-    <div class="memory-card" data-framework={{four.2}}>
-        <h1 class="front-face text-stroke" >{{four.1}}</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div>
-
-    <!-- <div class="memory-card" data-framework="9">
-        <h1 class="front-face text-stroke" >4+5</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div>
-
-    <div class="memory-card" data-framework="9">
-        <h1 class="front-face text-stroke">7+2</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div>
-        
-    <div class="memory-card" data-framework="5">
-        <h1 class="front-face text-stroke" >3+2</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div>
-
-    <div class="memory-card" data-framework="5">
-        <h1 class="front-face text-stroke" >9-4</h1>
-        <div class="back-face">
-            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-        </div>
-    </div> -->
-
-  </section>
-
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="{% static 'js/game.js'%}"></script>
 </body>

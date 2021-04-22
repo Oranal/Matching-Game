@@ -1,3 +1,6 @@
+@import url('admin.css');
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css');
+
 * {
     padding: 0;
     margin: 0;
@@ -57,7 +60,7 @@ img {
     padding: 5%;
     position: absolute;
     border-radius: 5px;
-    background: #1C7CCC;
+    background: linear-gradient(to bottom right, #3c4b56 0%, #9fb3c4 100%);
     backface-visibility: hidden;
     font-size: 300%;
     text-align: -webkit-center;
@@ -73,7 +76,7 @@ img {
     padding-top: 20%;
     position: absolute;
     border-radius: 5px;
-    background: #1C7CCC;
+    background: linear-gradient(to top right, #9fb3c4 0%, #3c4b56 100%);
     backface-visibility: hidden;
     font-size: 300%;
     text-align: -webkit-center;
