@@ -46,6 +46,24 @@
                     </form>
                 </div>
             </div>
+
+
+            <div class="institdrop">
+            <div class = container>
+                {% comment %} {% if accounts%} {% endcomment %}
+                <form action="{% url 'play_game' %}" method="get">
+                    {% csrf_token %}
+                    <label for="game">Choose game category</label>
+                    <select name="game" id="game">
+                        {% for game in games %}
+                        <option value={{game.category}}>{{game.category}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" class="btn btn-primary"value="play">
+                </form>
+                {% comment %} {% endif %} {% endcomment %}
+            </div>
+        </div>  
                     
         <ul class="bg-bubbles">
             <li></li>

@@ -8,7 +8,7 @@ my_bag = view_bag()
 
 def play(request):
     random_filler()
-    return render(request, 'game/play.html', random_filler())
+    return render(request, 'game/play.html', random_filler_holidays())
 
 def random_filler():
     fakedb = {1: ['2-1', '3-2', '7-6'],
