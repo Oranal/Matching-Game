@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from random import *
 from accounts.models import *
+from game.models import *
 from accounts import forms
 from accounts.viewbag import view_bag
 
@@ -192,6 +193,13 @@ def child_delete(request):
     return render(request, 'accounts/institutions.html', {'form':form, 'user':my_bag.get('user'), 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher')})
 
 def games(request):
+    if request.POST:
+        import os
+        import django
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
+        django.setup()
+        game = Board.objects.get_or_create(category=my_bag.get('category')[0], data=input_json_format_converter(my_bag.get('category')[1]))[0]
+        game.save()
     return render(request, 'accounts/games.html', {'user':my_bag.get('user')})
 
 def new_game(request):
@@ -201,14 +209,12 @@ def new_game(request):
 def game_info(request):
     if request.POST:
         my_bag.set('category', [request.POST['data'], {}])
-        print(my_bag.get('category'))
         if my_bag.get('topics'):
-            left = "עוד "+ str(len(my_bag.get('topics'))) + " לפחות"
+            left = len(my_bag.get('topics'))
         else:
-            left = "עוד "+ str(8) + " לפחות"
+            left = 8
     else:
-        print(str(8-len(my_bag.get('category')[1])))
-        left = "עוד "+ str(8-len(my_bag.get('category')[1])) + " לפחות"
+        left = 2-len(my_bag.get('category')[1])
     form = forms.SingleForm()
     return render(request, 'accounts/game_info.html', {'massage': left, 'form': form, 'user':my_bag.get('user')})
 
@@ -217,29 +223,29 @@ def game_topic(request):
         my_bag.get('category')[1][request.GET['data']]=[]
         my_bag.set('topic', request.GET['data'])
         form = forms.DoubleForm()
-        print(my_bag.get('category'))
         return render(request, 'accounts/game_topic.html', {'massage': 'first', 'form': form, 'user':my_bag.get('user')})
     else:
         my_bag.get('category')[1][my_bag.get('topic')].append(request.POST['data1'])
         my_bag.get('category')[1][my_bag.get('topic')].append(request.POST['data2'])
         form = forms.SingleForm()
-        print(my_bag.get('category'))
         return render(request, 'accounts/game_topic.html', {'massage': 'extra', 'form': form, 'user':my_bag.get('user')})
 
 def extra_card(request):
     if request.POST:
         my_bag.get('category')[1][my_bag.get('topic')].append(request.POST['data'])
-        print(my_bag.get('category'))
         form = forms.SingleForm()
         return render(request, 'accounts/game_topic.html', {'massage': 'extra', 'form': form, 'user':my_bag.get('user')})
-    else:
-        print(str(8-len(my_bag.get('category')[1])))
-        left = "עוד "+ str(8-len(my_bag.get('category')[1])) + " לפחות"
-        form = forms.SingleForm()
     return render(request, 'accounts/game_info.html', {'massage': left, 'form': form, 'user':my_bag.get('user')})
 
 def done_extra(request):
-    print(str(8-len(my_bag.get('category')[1])))
-    left = "עוד "+ str(8-len(my_bag.get('category')[1])) + " לפחות"
-    form = forms.SingleForm()
     return render(request, 'accounts/game_info.html', {'massage': left, 'form': form, 'user':my_bag.get('user')})
+
+def input_json_format_converter(input_game):
+    json_format = {}
+    for key in input_game.keys():
+        json_format[key] = {}
+        i=0
+        for card in input_game[key]:
+            json_format[key][str(i)] = card
+            i+=1
+    return json_format

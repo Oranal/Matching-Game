@@ -39,12 +39,25 @@
             <div class="institution">
                 <h2>Topic</h2>
                 <div class="container">
-                    <form method="get" action ="{% url 'game_topic' %}" >
-                        <h4 style="color: red">{{ massage }}</h4>
-                        {{form.as_p}}
-                        {% csrf_token %}
-                        <input type="submit" class="btn btn-primary"value="הוסף נושא">
-                    </form>
+                    {% if massage > 0 %}
+                        <form method="get" action ="{% url 'game_topic' %}" >
+                            <h4 style="color: red">עוד {{ massage }} לפחות</h4>
+                            {{form.as_p}}
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-primary"value="הוסף נושא">
+                        </form>
+                    {% else %}
+                        <form method="get" action ="{% url 'game_topic' %}" >
+                            {{form.as_p}}
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-primary"value="הוסף נושא">
+                        </form>
+                        <form action="{% url 'games' %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-primary"value="סיים">
+                        </form>
+                    {% endif %}
+
                 </div>
             </div>
                     

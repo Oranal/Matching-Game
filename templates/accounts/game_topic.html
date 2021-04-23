@@ -36,33 +36,36 @@
             </div>
         </nav>
     
-            <div class="institution">
-                <div class="container">
-                    {% if massage == 'first' %}
+        <div class="institution">
+            <div class="container">
+                {% if massage == 'first' %}
+
                     <form method="post" action ="{% url 'game_topic' %}" >
-                        <input type="submit" class="btn btn-primary"value="הוסף נושא">
+                        <input type="submit" class="btn btn-primary"value="הוסף קלפים">
                         {{form.as_p}}
                         {% csrf_token %}
                     </form>
-                    {% else %}
+
+                {% else %}
+
+                    <form method="post" action ="{% url 'extra_card' %}" >
+                        <input type="submit" class="btn btn-primary"value="הוסף קלף" formaction ="{% url 'extra_card' %}">
+                        {{form.as_p}}
+                        {% csrf_token %}
+                    </form>
                     <div>
-
-                        <form method="post" action ="{% url 'extra_card' %}" >
-                            <input type="submit" class="btn btn-primary"value="הוסף">
-                            {{form.as_p}}
+                        <form action="{% url 'game_info' %}" method="get">
                             {% csrf_token %}
+                            <input type="submit" class="btn btn-primary"value="סיים">
                         </form>
-                        
-                        <form action ="{% url 'done_extra' %}">
-                            {% csrf_token %}
-                            <input type="button" class="btn btn-primary"value="סיים">
-                        </form>
-                        
                     </div>
-                    {% endif %}
-
-                </div>
+                    <!-- <form method = "get" action ="{% url 'done_extra' %}">
+                        {% csrf_token %}
+                    </form> -->
+                {% endif %}
             </div>
+        </div>      
+
                     
         <ul class="bg-bubbles">
             <li></li>
