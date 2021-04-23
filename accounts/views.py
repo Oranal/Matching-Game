@@ -214,7 +214,7 @@ def game_info(request):
         else:
             left = 8
     else:
-        left = 2-len(my_bag.get('category')[1])
+        left = 8-len(my_bag.get('category')[1])
     form = forms.SingleForm()
     return render(request, 'accounts/game_info.html', {'massage': left, 'form': form, 'user':my_bag.get('user')})
 
