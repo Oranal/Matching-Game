@@ -1,17 +1,16 @@
 @import url('admin.css');
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css');
-
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-  }
+}
 
 img {
-    border-radius: 0%; 
+    border-radius: 0%;
 }
-  
-  .memory-game {
+
+.memory-game {
     width: 1280px;
     height: 640px;
     margin: auto;
@@ -20,14 +19,14 @@ img {
     grid-template-columns: auto auto auto auto;
     grid-template-rows: auto auto auto;
     perspective: 1000px;
-  }
+}
 
-  .card-img {
-      /* width: 70%; */
-      height: 100%
-  }
-  
-  .memory-card {
+.card-img {
+    /* width: 70%; */
+    height: 100%
+}
+
+.memory-card {
     width: calc(100% - 10px);
     height: calc(100% - 10px);
     margin: 5px;
@@ -36,19 +35,18 @@ img {
     transform-style: preserve-3d;
     transition: transform .5s;
     box-shadow: 1px 1px 1px rgb(0 0 0 / 30%);
-  }
-  
-  .memory-card:active {
+}
+
+.memory-card:active {
     transform: scale(0.97);
     transition: transform .2s;
-  }
-  
-  .memory-card.flip {
+}
+
+.memory-card.flip {
     transform: rotateY(180deg);
-  }
-  
-  .back-face
-  {
+}
+
+.back-face {
     width: 100%;
     height: 100%;
     padding: 5%;
@@ -61,10 +59,9 @@ img {
     font-family: 'Anton', sans-serif;
     color: rgb(118, 203, 230);
     box-shadow: rgb(0, 0, 0) 4px 5px 11px 0px;
-  }
-  
-  .front-face
-  {
+}
+
+.front-face {
     width: 100%;
     height: 100%;
     padding-top: 20%;
@@ -77,39 +74,49 @@ img {
     font-family: 'Anton', sans-serif;
     color: rgb(118, 203, 230);
     box-shadow: rgb(0, 0, 0) 4px 5px 11px 0px;
-  }
+}
 
-  .text-stroke{
-      -webkit-text-stroke-width: 1.5px;
-      -webkit-text-stroke-color: rgb(23, 55, 78);
-  }
-  
-  .front-face {
+.text-stroke {
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: rgb(23, 55, 78);
+}
+
+.front-face {
     transform: rotateY(180deg);
-  }
+}
 
-  #button1 {
-    display:inline-block;
-    padding:0.5em 1.5em;
-    border:0.1em solid #FFFFFF;
-    margin:0.5em 0.5em 0.3em 0em;
-    border-radius:0.12em;
+#button1 {
+    display: inline-block;
+    padding: 0.5em 1.5em;
+    border: 0.1em solid #FFFFFF;
+    margin: 0.5em 0.5em 0.3em 0em;
+    border-radius: 0.12em;
     box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    color:#FFFFFF;
-    text-align:center;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #FFFFFF;
+    text-align: center;
     transition: all 0.2s;
-  }
-  
-  #button1:hover {
-    color:#FFFFFF;
-    background-color:#c82929;
-  }
-  @media all and (max-width:30em) {
-    #button1{
-      display:block;
-      margin:0.4em auto;
+}
+
+#button1:hover {
+    color: #FFFFFF;
+    background-color: #c82929;
+}
+
+@media all and (max-width:30em) {
+    #button1 {
+        display: block;
+        margin: 0.4em auto;
     }
-  }
+}
+
+#countdown {
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    width: 200px;
+}

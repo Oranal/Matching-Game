@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
 
-  <title>Memory Game</title>
+<head>
+    <meta charset="UTF-8">
+
+    <title>Memory Game</title>
 
     <link rel="stylesheet" type="text/css" href='{% static "css/game.css"%}'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
+
 <body>
 
     <div class="fullwrapper">
@@ -20,29 +21,30 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
                 </div>
-                
+
 
                 <ul class="nav navbar-nav navbar-right">
+
                     <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'games' %}" id="button1">EXIT</a></li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'games' %}" id="countdown">EXIT</a></li>
+                </ul>
+
             </div>
         </nav>
         <section class="memory-game">
-            {% for couple in board%}
-                {% for card in couple %}
-                    {% if card != couple.2 %}
-                    <div class="memory-card" data-framework={{couple.2}}>
-                        <p class="front-face text-stroke" >{{card}}</p>
-                        <div class="back-face">
-                            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-                        </div>
-                    </div>
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
+            {% for couple in board%} {% for card in couple %} {% if card != couple.2 %}
+            <div class="memory-card" data-framework={{couple.2}}>
+                <p class="front-face text-stroke">{{card}}</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+            {% endif %} {% endfor %} {% endfor %}
 
 
         </section>
@@ -59,7 +61,8 @@
             <li></li>
         </ul>
     </div>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="{% static 'js/game.js'%}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{% static 'js/game.js'%}"></script>
 </body>
+
 </html>

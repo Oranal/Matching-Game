@@ -69,3 +69,11 @@ def random_filler_holidays():
     x['three'] = third
     x['four'] = fourth
     return x
+
+
+def randomChooseFilter():
+    x = random.randint(0,2)
+    if x ==0:
+        return random_filler_holidays()
+    elif x==1:
+        return random_filler()
