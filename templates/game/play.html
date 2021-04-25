@@ -31,63 +31,20 @@
             </div>
         </nav>
         <section class="memory-game">
-            <div class="memory-card" data-framework={{one.2}}>
-                <p class="front-face text-stroke" >{{one.0}}</p>
-                <div class="back-face">
-                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-                </div>
-            </div>
-            <div class="memory-card" data-framework={{one.2}}>
-                <p class="front-face text-stroke">{{one.1}}</p>
-                <div class="back-face">
-                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-                </div>
-            </div>
-            
-            <div class="memory-card" data-framework={{two.2}}>
-                <p class="front-face text-stroke" >{{two.0}}</p>
-                <div class="back-face">
-                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-                </div>
-            </div>
-            <div class="memory-card" data-framework={{two.2}}>
-                <p class="front-face text-stroke" >{{two.1}}</p>
-                <div class="back-face">
-                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-                </div>
-            </div>
-        
-            <div class="memory-card" data-framework={{three.2}}>
-                <p class="front-face text-stroke" >{{three.0}}</p>
-                <div class="back-face">
-                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-                </div>
-            </div>
-            <div class="memory-card" data-framework={{three.2}}>
-                <p class="front-face text-stroke">{{three.1}}</p>
-                <div class="back-face">
-                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-                </div>
-            </div>
-                
-            <div class="memory-card" data-framework={{four.2}}>
-                <p class="front-face text-stroke" >{{four.0}}</p>
-                <div class="back-face">
-                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-                </div>
-            </div>
+            {% for couple in board%}
+                {% for card in couple %}
+                    {% if card != couple.2 %}
+                    <div class="memory-card" data-framework={{couple.2}}>
+                        <p class="front-face text-stroke" >{{card}}</p>
+                        <div class="back-face">
+                            <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
 
-            <div class="memory-card" data-framework={{four.2}}>
-                <p class="front-face text-stroke" >{{four.1}}</p>
-                <div class="back-face">
-                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
-                </div>
-            </div>
 
-            
-            
-
-            
         </section>
         <ul class="bg-bubbles">
             <li></li>

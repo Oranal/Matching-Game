@@ -59,6 +59,12 @@
                         <option value={{game.category}}>{{game.category}}</option>
                         {% endfor %}
                     </select>
+                    <label for="difficulty">Choose game difficulty</label>
+                    <select name="difficulty" id="difficulty">
+                        <option value='4'>קל</option>
+                        <option value='6'>בינוני</option>
+                        <option value='8'>קשה</option>
+                    </select>
                     <input type="submit" class="btn btn-primary"value="play">
                 </form>
                 {% comment %} {% endif %} {% endcomment %}

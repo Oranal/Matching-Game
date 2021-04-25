@@ -266,22 +266,12 @@ def play_game(request):
             for card in game['data'][key]:
                 card_data[key].append(game['data'][key][card])
 
-        topics = sample(card_data.keys(),4)
+        topics = sample(card_data.keys(),int(request.GET['difficulty']))
 
-        first = sample(card_data[topics[0]], 2)
-        first.append(topics[0])
-        second = sample(card_data[topics[1]], 2)
-        second.append(topics[1])
-        third = sample(card_data[topics[2]], 2)
-        third.append(topics[2])
-        fourth = sample(card_data[topics[3]], 2)
-        fourth.append(topics[3])
+        board=[]
+        for i in range(int(request.GET['difficulty'])):
+            board.append(sample(card_data[topics[i]], 2))
+            board[i].append(topics[i])
 
-        x={}
-        x['one'] = first
-        x['two'] = second
-        x['three'] = third
-        x['four'] = fourth
- 
-        return render(request, 'game/play.html',x)
+        return render(request, 'game/play.html',{'board': board})
     
