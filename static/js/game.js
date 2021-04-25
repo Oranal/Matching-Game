@@ -1,4 +1,3 @@
-
 const cards = document.querySelectorAll('.memory-card');
 
 let hasFlippedCard = false;
@@ -8,21 +7,21 @@ let popalert = false;
 let resault;
 
 function flipCard() {
-  if (lockBoard) return;
-  if (this === firstCard) return;
+    if (lockBoard) return;
+    if (this === firstCard) return;
 
-  this.classList.add('flip');
+    this.classList.add('flip');
 
-  if (!hasFlippedCard) {
-    hasFlippedCard = true;
-    firstCard = this;
-    resault = this;
+    if (!hasFlippedCard) {
+        hasFlippedCard = true;
+        firstCard = this;
+        resault = this;
 
-    return;
-  }
+        return;
+    }
 
-  secondCard = this;
-  checkForMatch();
+    secondCard = this;
+    checkForMatch();
 }
 
 function checkForMatch() {
@@ -35,44 +34,47 @@ function disableCards() {
     secondCard.removeEventListener('click', flipCard);
     popalert = true;
 
-  resetBoard();
+    resetBoard();
 }
 
 function unflipCards() {
-  lockBoard = true;
+    lockBoard = true;
 
-  setTimeout(() => {
-    firstCard.classList.remove('flip');
-    secondCard.classList.remove('flip');
-    
-    resetBoard();
-}, 1500);
+    setTimeout(() => {
+        firstCard.classList.remove('flip');
+        secondCard.classList.remove('flip');
+
+        resetBoard();
+    }, 1500);
 }
 
 function resetBoard() {
     [hasFlippedCard, lockBoard] = [false, false];
     [firstCard, secondCard] = [null, null];
     setTimeout(() => {
-        if (popalert){
+        if (popalert) {
             popalert = false;
             swal({
                 title: resault.dataset.framework,
                 text: "כל הכבוד, מצאת זוג",
                 icon: "success",
                 button: "יש",
-              });
+            });
             // alert(resault.dataset.framework);
         }
-        
+
     }, 800);
     // alert('firstCard.framework');
 }
 
 (function shuffle() {
-  cards.forEach(card => {
-    let randomPos = Math.floor(Math.random() * 12);
-    card.style.order = randomPos;
-  });
+    cards.forEach(card => {
+        let randomPos = Math.floor(Math.random() * 12);
+        card.style.order = randomPos;
+    });
 })();
 
 cards.forEach(card => card.addEventListener('click', flipCard));
+
+
+const
