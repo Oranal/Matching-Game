@@ -34,7 +34,7 @@ pipeline {
 		failure{
             emailext body: 'Test Message',
             subject: 'Test Subject',
-            to: 'barazenkot3@gmail.com'
+            mail to: 'barazenkot3@gmail.com'
 			// mailto: 'barazenkot3@gmail.com',
 			// subject: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
 			// body: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']: Check console output at '${env.BUILD_URL}' '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']"
@@ -42,7 +42,7 @@ pipeline {
 		success{
             emailext body: 'Test Message',
             subject: 'Test Subject',
-            to: 'barazenkot3@gmail.com'
+            mail to: 'barazenkot3@gmail.com'
 			// mailto: 'barazenkot3@gmail.com',
 			// subject: "SUCCESS: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
 			// body: "SUCCESS: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']: Check console output at '${env.BUILD_URL}' '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']"
