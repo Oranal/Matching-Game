@@ -316,3 +316,33 @@ font-size: 18px;
   -webkit-animation-delay: 11s;
           animation-delay: 11s;
 }
+
+#difficulty{
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+[type="radio"] + img{
+  border-radius: 5px;
+  cursor: pointer;
+  width:100%;
+}
+
+[type="radio"]:checked + img{
+  border-radius: 5px;
+  outline: 2px solid #fff;
+}
+
+.diffcontainer{
+  /* margin: 0 auto;
+  padding: 20px 0;
+  height: 200px; */
+  text-align: -webkit-center;
+}
+
+input[type="radio"]:checked + img{
+  border-radius: 5px;
+  outline: 2px solid #fff;
+}

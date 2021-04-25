@@ -17,7 +17,7 @@
 
 <body>
     
-    {% if user.username == 'admin' %}
+    {% if user %}
     
     <div class = "fullwrapper">
         <nav class="navbar navbar-inverse">
@@ -35,9 +35,9 @@
                 </ul>
             </div>
         </nav>
-    
+        {% if user.username == 'admin' %}
             <div class="institution">
-                <h2>All Games</h2>
+                {% comment %} <h2>All Games</h2> {% endcomment %}
                 <div class="container">
                     <h4 style="color: red">{{ errorMessage }}</h4>
                     <form method="post" action ="{% url 'new_game' %}" >
@@ -46,28 +46,42 @@
                     </form>
                 </div>
             </div>
-
+        {% endif %}
 
             <div class="institdrop">
             <div class = container>
                 {% comment %} {% if accounts%} {% endcomment %}
-                <form action="{% url 'play_game' %}" method="get">
-                    {% csrf_token %}
-                    <label for="game">Choose game category</label>
-                    <select name="game" id="game">
-                        {% for game in games %}
-                        <option value={{game.category}}>{{game.category}}</option>
-                        {% endfor %}
-                    </select>
-                    <label for="difficulty">Choose game difficulty</label>
-                    <select name="difficulty" id="difficulty">
-                        <option value='4'>קל</option>
-                        <option value='6'>בינוני</option>
-                        <option value='8'>קשה</option>
-                    </select>
-                    <input type="submit" class="btn btn-primary"value="play">
-                </form>
-                {% comment %} {% endif %} {% endcomment %}
+                {% if user.role == 'Child' %}
+
+                    <form action="{% url 'difficulty' %}" method="get">
+                        {% csrf_token %}
+                        <label for="game">Choose game category</label>
+                        <select name="game" id="game">
+                            {% for game in games %}
+                            <option value={{game.category}}>{{game.category}}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" class="btn btn-primary"value="play">
+                    </form>
+
+                {% else %}
+                    <form action="{% url 'play_game' %}" method="get">
+                        {% csrf_token %}
+                        <label for="game">Choose game category</label>
+                        <select name="game" id="game">
+                            {% for game in games %}
+                            <option value={{game.category}}>{{game.category}}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="difficulty">Choose game difficulty</label>
+                        <select name="difficulty" id="difficulty">
+                            <option value='4'>קל</option>
+                            <option value='6'>בינוני</option>
+                            <option value='8'>קשה</option>
+                        </select>
+                        <input type="submit" class="btn btn-primary"value="play">
+                    </form>
+                {% endif %}
             </div>
         </div>  
                     

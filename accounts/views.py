@@ -30,7 +30,7 @@ def login(request):
                 form1 = forms.ChildForm()
                 return render(request, 'accounts/institutions.html', {'user': user, 'form': form1, 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher')})
             elif user['role'] == 'Child':
-                return render(request, 'accounts/student_dashboard.html', user)
+                return render(request, 'accounts/games.html', {'user': user, 'games': Board.objects.values('category')})
             elif user['role'] == 'Administrator':
                 form1 = forms.KindergardenForm()
                 return render(request, 'accounts/admin_dashboard.html', {'form': form1, 'user': user, 'accounts': Account.objects.values('institution').distinct()})
@@ -274,4 +274,33 @@ def play_game(request):
             board[i].append(topics[i])
 
         return render(request, 'game/play.html',{'board': board})
+
+def difficulty(request):
+    if request.GET:
+        request.GET['game']
+        for game in Board.objects.values():
+            if game['category'] == request.GET['game']:
+                break
+        score = my_bag.get('user')['rating']
+        my_bag.set('game', game)
     
+        return render(request, 'accounts/difficulty.html',{'user': my_bag.get('user'), 'score': score})
+        
+    else:
+        
+        print("\n\n\n\n\nGAME:" , my_bag.get('game')['data'].keys() , "\n\n\n") 
+        card_data = {}
+        for key in my_bag.get('game')['data'].keys():
+            card_data[key] = []
+            for card in my_bag.get('game')['data'][key]:
+                card_data[key].append(my_bag.get('game')['data'][key][card])
+
+        topics = sample(card_data.keys(),int(request.POST['difficulty']))
+
+        board=[]
+        for i in range(int(request.POST['difficulty'])):
+            board.append(sample(card_data[topics[i]], 2))
+            board[i].append(topics[i])
+
+        return render(request, 'game/play.html',{'board': board})
+
