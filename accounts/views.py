@@ -302,5 +302,5 @@ def difficulty(request):
             board.append(sample(card_data[topics[i]], 2))
             board[i].append(topics[i])
 
-        return render(request, 'game/play.html',{'board': board})
+        return render(request, 'game/play.html',{'board': board, 'difficulty' : request.POST['difficulty']} )
 

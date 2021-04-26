@@ -6,7 +6,7 @@ let time = startingMinutes * 60;
 
 // alert(countdownEl);
 
-setInterval(updateCountdown, 1000);
+let timerInterval = setInterval(updateCountdown, 1000);
 
 function updateCountdown() {
     let minutes = Math.floor(time / 60);
@@ -16,7 +16,9 @@ function updateCountdown() {
     seconds = seconds < 10 ? '0' + seconds : seconds;
 
     countdownEl.innerHTML = `${minutes} : ${seconds}`;
-    time--;
+    if (time > 0) {
+        time--;
+    }
 }
 
 
@@ -27,6 +29,7 @@ let lockBoard = false;
 let firstCard, secondCard;
 let popalert = false;
 let resault;
+let cuplesAmount = parseInt(document.getElementById('countdowntime').value);
 
 function flipCard() {
     if (lockBoard) return;
@@ -76,6 +79,10 @@ function resetBoard() {
     setTimeout(() => {
         if (popalert) {
             popalert = false;
+            cuplesAmount--;
+            if (cuplesAmount == 0) {
+                clearInterval(timerInterval);
+            }
             swal({
                 title: resault.dataset.framework,
                 text: "כל הכבוד, מצאת זוג",
