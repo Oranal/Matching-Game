@@ -1,3 +1,25 @@
+const countdownEl = document.getElementById('countdown');
+const startingMinutes = parseInt(document.getElementById('countdowntime').value);
+// const startingMinutes = 12;
+
+let time = startingMinutes * 60;
+
+// alert(countdownEl);
+
+setInterval(updateCountdown, 1000);
+
+function updateCountdown() {
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    countdownEl.innerHTML = `${minutes} : ${seconds}`;
+    time--;
+}
+
+
 const cards = document.querySelectorAll('.memory-card');
 
 let hasFlippedCard = false;
@@ -75,6 +97,3 @@ function resetBoard() {
 })();
 
 cards.forEach(card => card.addEventListener('click', flipCard));
-
-
-const
