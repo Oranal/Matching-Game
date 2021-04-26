@@ -1,6 +1,7 @@
 const countdownEl = document.getElementById('countdown');
-const startingMinutes = parseInt(document.getElementById('countdowntime').value);
+const startingMinutes = parseInt(document.getElementById('countdowntime').value) - 2;
 // const startingMinutes = 12;
+
 
 let time = startingMinutes * 60;
 
@@ -20,6 +21,7 @@ function updateCountdown() {
         time--;
     }
 }
+
 
 
 const cards = document.querySelectorAll('.memory-card');
@@ -82,6 +84,8 @@ function resetBoard() {
             cuplesAmount--;
             if (cuplesAmount == 0) {
                 clearInterval(timerInterval);
+                document.getElementById('countdowntime').value = time;
+                document.getElementById('countdowntime').type = 'submit';
             }
             swal({
                 title: resault.dataset.framework,
