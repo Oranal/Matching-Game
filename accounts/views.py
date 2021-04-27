@@ -259,7 +259,6 @@ def play_game(request):
         for game in Board.objects.values():
             if game['category'] == request.GET['game']:
                 break
-        print("\n\n\n\n\nGAME:" , game['data'].keys() , "\n\n\n") 
         card_data = {}
         for key in game['data'].keys():
             card_data[key] = []
@@ -288,7 +287,6 @@ def difficulty(request):
         
     else:
         
-        print("\n\n\n\n\nGAME:" , my_bag.get('game')['data'].keys() , "\n\n\n") 
         card_data = {}
         for key in my_bag.get('game')['data'].keys():
             card_data[key] = []
@@ -302,5 +300,5 @@ def difficulty(request):
             board.append(sample(card_data[topics[i]], 2))
             board[i].append(topics[i])
 
-        return render(request, 'game/play.html',{'board': board, 'difficulty' : request.POST['difficulty']} )
+        return render(request, 'game/play.html',{'board': board, 'difficulty' : request.POST['difficulty'], 'user': my_bag.get('user')})
 
