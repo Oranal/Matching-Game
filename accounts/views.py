@@ -272,7 +272,7 @@ def play_game(request):
             board.append(sample(card_data[topics[i]], 2))
             board[i].append(topics[i])
 
-        return render(request, 'game/play.html',{'board': board})
+        return render(request, 'game/play.html',{'board': board, 'user': my_bag.get('user')})
 
 def difficulty(request):
     if request.GET:

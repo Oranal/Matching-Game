@@ -48,7 +48,7 @@
             </div>
         {% endif %}
 
-            <div class="institdrop">
+            <div class="diffdrop">
             <div class = container>
                 {% comment %} {% if accounts%} {% endcomment %}
                 {% if user.role == 'Child' %}
@@ -74,11 +74,12 @@
                             {% endfor %}
                         </select>
                         <label for="difficulty">Choose game difficulty</label>
-                        <select name="difficulty" id="difficulty">
+                        <select name="difficulty" id="diff">
                             <option value='4'>קל</option>
                             <option value='6'>בינוני</option>
                             <option value='8'>קשה</option>
                         </select>
+                        <br>
                         <input type="submit" class="btn btn-primary"value="play">
                     </form>
                 {% endif %}

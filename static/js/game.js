@@ -1,4 +1,3 @@
-console.log("khsbdfkshb");
 const role = document.getElementById('role').value;
 if (role == 'Child') {
 
