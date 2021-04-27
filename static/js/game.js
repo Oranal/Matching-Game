@@ -1,29 +1,26 @@
 const role = document.getElementById('role').value;
-if (role == 'Child') {
 
-    const countdownEl = document.getElementById('countdown');
-    const startingMinutes = parseInt(document.getElementById('countdowntime').value) - 2;
+const countdownEl = document.getElementById('countdown');
+const startingMinutes = parseInt(document.getElementById('countdowntime').value) - 2;
 
 
-    let time = startingMinutes * 60;
+let time = startingMinutes * 60;
 
-    // alert(countdownEl);
+// alert(countdownEl);
 
-    let timerInterval = setInterval(updateCountdown, 1000);
+let timerInterval = setInterval(updateCountdown, 1000);
 
-    function updateCountdown() {
-        let minutes = Math.floor(time / 60);
-        let seconds = time % 60;
+function updateCountdown() {
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
 
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
 
-        countdownEl.innerHTML = `${minutes} : ${seconds}`;
-        if (time > 0) {
-            time--;
-        }
+    countdownEl.innerHTML = `${minutes} : ${seconds}`;
+    if (time > 0) {
+        time--;
     }
-
 }
 
 
@@ -85,19 +82,17 @@ function resetBoard() {
         if (popalert) {
             popalert = false;
             cuplesAmount--;
-            if (cuplesAmount == 0) {
-                if (role == 'Child') {
-                    clearInterval(timerInterval);
-                    document.getElementById('countdowntime').value = time;
-                    document.getElementById('countdowntime').type = 'submit';
-                }
-            }
             swal({
                 title: resault.dataset.framework,
                 text: "כל הכבוד, מצאת זוג",
                 icon: "success",
                 button: "יש",
             });
+            if (cuplesAmount == 0) {
+                clearInterval(timerInterval);
+                document.getElementById('countdowntime').value = time;
+                // document.getElementById('countdowntime').type = 'submit';
+            }
         }
 
     }, 800);
