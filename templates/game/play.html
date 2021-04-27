@@ -31,12 +31,14 @@
                     <li><a href="{% url 'games' %}" id="button1">EXIT</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    {% if user.role == 'Child' %}
                     <li>
                         <input type=hidden id="countdowntime" value={{difficulty}} />
                         <p id=countdown></p>
 
 
                     </li>
+                    {% endif %}
                 </ul>
 
             </div>
