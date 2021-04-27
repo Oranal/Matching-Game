@@ -136,3 +136,16 @@ img {
     width: 130px;
     padding-top: 3%;
 }
+
+#hello {
+    color: #fff;
+    font-size: 28px;
+    padding-top: 3%;
+    padding-left: 5px;
+}
+
+#rating {
+    color: #fff;
+    font-size: 28px;
+    padding-top: 2%;
+}

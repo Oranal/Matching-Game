@@ -37,6 +37,14 @@
                         <input type=hidden id="role" value={{user.role}} />
                     </li>
                 </ul>
+                {% if user.role == 'Child'%}
+                    <ul class="nav navbar-nav navbar-left">
+                        <li id="hello">Hello {{user.first_name}} {{user.last_name}}</li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li id="rating">Total Rating: {{user.rating}} </li>
+                    </ul>
+                {% endif %}
             </div>
         </nav>
         <section class="memory-game">
