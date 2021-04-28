@@ -21,8 +21,4 @@ urlpatterns = [
     url(r'^play_game/$',views.play_game, name = 'play_game'),
     url(r'^score_board/$',views.score_board, name = 'score_board'),
 
-
-
-
-
 ]
