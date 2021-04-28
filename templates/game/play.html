@@ -32,9 +32,6 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <form action="{% url 'games' %}" method="GET">
-                            <input type="button" id="countdowntime" value={{difficulty}}> click </input>
-                        </form>
                         <div id="countdown"></div>
                     </li>
                 </ul>
@@ -58,8 +55,10 @@
             </div>
             {% endif %} {% endfor %} {% endfor %}
 
-
         </section>
+        <form action="{% url 'games' %}" method="GET">
+            <input name = "score" type="submit" id="countdowntime" value = {{difficulty}}>
+        </form>
         <ul class="bg-bubbles">
             <li></li>
             <li></li>

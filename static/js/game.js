@@ -88,8 +88,11 @@ function resetBoard() {
             });
             if (cuplesAmount == 0) {
                 clearInterval(timerInterval);
-                document.getElementById('countdowntime').value = time;
-                document.getElementById('countdowntime').click();
+                setTimeout(() => {
+                    document.getElementById('countdowntime').value = time;
+                    // document.getElementById('countdowntime').type = 'submit';
+                    document.getElementById('countdowntime').click();
+                }, 2000)
             }
         }
 

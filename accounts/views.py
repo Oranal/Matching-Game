@@ -142,7 +142,6 @@ def teacher_details(request):
     form = forms.KindergardenForm(initial = {'UserName': my_bag.get('teacher')['username'], 'Password': my_bag.get('teacher')['password'], 'FirstName': my_bag.get('teacher')['first_name'], 'LastName': my_bag.get('teacher')['last_name'], 'Institution': my_bag.get('teacher')['institution']})
 
     # form = forms.KindergardenForm()
-    print('\n', my_bag.get_all(), '\n\n')
     if request.GET:
         print('get\n')
     elif request.POST:
@@ -202,14 +201,14 @@ def games(request):
         game = Board.objects.get_or_create(category=my_bag.get('category')[0], data=input_json_format_converter(my_bag.get('category')[1]))[0]
         game.save()
     elif my_bag.get('user')['role'] == 'Child':
-        print(request.GET.values())
-        # import os
-        # import django
-        # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
-        # django.setup()
-        # user = Account.objects.get(username = my_bag.get('user')['username'])[0]
-        # user.rating += request.GET.values()
-    # print(Board.objects.values('category') , "hhhhhhhhhhhhhhhhhhhh\n\n")
+        import os
+        import django
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
+        django.setup()
+        user = Account.objects.get(username = my_bag.get('user')['username'])
+        user.rating = user.rating+int(request.GET['score'])
+        user.save()
+        my_bag.get('user')['rating']+=int(request.GET['score'])
     return render(request, 'accounts/games.html', {'user':my_bag.get('user') , 'games': Board.objects.values('category')})
 
 def new_game(request):
@@ -290,6 +289,7 @@ def difficulty(request):
                 break
         score = my_bag.get('user')['rating']
         my_bag.set('game', game)
+
     
         return render(request, 'accounts/difficulty.html',{'user': my_bag.get('user'), 'score': score})
         
