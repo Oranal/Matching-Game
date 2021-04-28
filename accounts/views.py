@@ -263,6 +263,26 @@ def input_json_format_converter(input_game):
 
 def play_game(request):
     if request.GET:
+        if 'add' in request.GET:
+            if request.GET['game'] not in my_bag.get('user')['categories'].values():
+                import os
+                import django
+                os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
+                django.setup()
+                user = Account.objects.get(username = my_bag.get('user')['username'])
+                user.categories = jasonedCategories(my_bag.get('user')['categories'],request.GET['game'])
+                user.save()
+                for user in Account.objects.values():
+                    if user['institution'] == my_bag.get('user')['institution']:
+                        if user['username'] == my_bag.get('user')['username']:
+                            my_bag.set('user', user)
+                        else:
+                            print(user)
+                            usr = Account.objects.get(username=user['username'])
+                            usr.categories = jasonedScore(user['categories'], request.GET['game'])
+                            usr.save()
+            return render(request, 'accounts/games.html', {'user':my_bag.get('user') , 'games': Board.objects.values('category'), 'categories' : listed_categories()})           
+
         request.GET['game']
         print("here \n\n\n")
         for game in Board.objects.values():
@@ -323,3 +343,11 @@ def listed_categories():
     for val in my_bag.get('user')['categories'].values():
         result.append(val)
     return result
+
+def jasonedCategories(categories,category):
+    categories[str(len(categories.keys()))] = category
+    return categories
+
+def jasonedScore(categories,category):
+    categories[category] = "0"
+    return categories

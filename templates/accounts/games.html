@@ -81,7 +81,10 @@
                             <option value='8'>קשה</option>
                         </select>
                         <br>
-                        <input type="submit" class="btn btn-primary"value="play">
+                        <input type="submit" name="play" class="btn btn-primary"value="play">
+                        {% if user.role == 'Kindergarden' %}
+                            <input type="submit" name="add" class="btn btn-primary"value="add">
+                        {% endif %}
                     </form>
                     {% if user.role == 'Kindergarden' %}
                     <br>
