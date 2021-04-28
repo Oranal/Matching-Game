@@ -5,6 +5,7 @@ from django.urls import reverse
 from accounts.models import Account
 from accounts.apps import AccontsConfig
 from accounts.views import *
+from accounts.forms import FormLogin
 
 @tag('unit-test')
 class AccountTestCase(TestCase):
@@ -71,7 +72,7 @@ class AccountTestCase(TestCase):
 
 
 
-
+#TEST URLS:
 
 @tag('unit-test')
 class AccountsUrlsTest(TestCase):
@@ -178,15 +179,46 @@ class AccountsUrlsTest(TestCase):
         self.assertEqual(resolve(url).func,score_board)    
             
 
+#TEST FORMS:
+
+@tag('unit-test')
+class FormLoginTest(TestCase):
+    def setUp(self):
+        self.form_data = {'UserName' : 'userNameTest', 'Password': 'passwordTest'}
+        self.form = FormLogin(data = self.form_data)
+
+    def test_UserName_required(self):
+        #Assert
+        self.assertTrue(self.form.fields['UserName'].required)
+
+    def test_Password_required(self):
+        #Assert
+        self.assertTrue(self.form.fields['Password'].required)
+
+
+
+
+#TEST MODELS:
+
+
+
+#TEST VIEWS:
 
 
 
 
 
 
+
+
+#TEST APP:
 
 @tag('unit-test')
 class ProfileAppsTestCase(TestCase):
     def test_apps_name(self):
         #Assert
         self.assertEqual(AccontsConfig.name, "acconts")
+
+
+
+
