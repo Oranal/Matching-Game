@@ -89,7 +89,7 @@ function resetBoard() {
             if (cuplesAmount == 0) {
                 clearInterval(timerInterval);
                 setTimeout(() => {
-                    document.getElementById('countdowntime').value = time;
+                    document.getElementById('countdowntime').value = Math.max(time, 0);
                     // document.getElementById('countdowntime').type = 'submit';
                     document.getElementById('countdowntime').click();
                 }, 2000)

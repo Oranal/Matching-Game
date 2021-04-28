@@ -200,7 +200,7 @@ def games(request):
         django.setup()
         game = Board.objects.get_or_create(category=my_bag.get('category')[0], data=input_json_format_converter(my_bag.get('category')[1]))[0]
         game.save()
-    elif my_bag.get('user')['role'] == 'Child':
+    elif my_bag.get('user')['role'] == 'Child' and request.GET:
         import os
         import django
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
