@@ -207,6 +207,7 @@ def games(request):
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
         django.setup()
         user = Account.objects.get(username = my_bag.get('user')['username'])
+        user.categories = updated_score_for_category(my_bag.get('user')['categories'], my_bag.get('game')['category'], int(request.GET['score']))
         user.rating = user.rating+int(request.GET['score'])
         user.save()
         my_bag.get('user')['rating']+=int(request.GET['score'])
@@ -314,8 +315,9 @@ def difficulty(request):
             if game['category'] == request.GET['game']:
                 break
         score = my_bag.get('user')['rating']
+        categoryscore = my_bag.get('user')['categories'][request.GET['game']]
         my_bag.set('game', game)
-        return render(request, 'accounts/difficulty.html',{'user': my_bag.get('user'), 'score': score})
+        return render(request, 'accounts/difficulty.html',{'user': my_bag.get('user'), 'score': score, 'categoryscore':categoryscore, 'game':request.GET['game']})
         
     else:
         
@@ -361,3 +363,7 @@ def listed_games(categories):
         temp['category'] = category
         result.append(temp)
     return result
+
+def updated_score_for_category(categories, category, score):
+    categories[category] = str(int(categories[category])+score)
+    return categories
