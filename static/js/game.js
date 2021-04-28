@@ -1,5 +1,3 @@
-const role = document.getElementById('role').value;
-
 const countdownEl = document.getElementById('countdown');
 const startingMinutes = parseInt(document.getElementById('countdowntime').value) - 2;
 
@@ -91,7 +89,7 @@ function resetBoard() {
             if (cuplesAmount == 0) {
                 clearInterval(timerInterval);
                 document.getElementById('countdowntime').value = time;
-                // document.getElementById('countdowntime').type = 'submit';
+                document.getElementById('countdowntime').click();
             }
         }
 

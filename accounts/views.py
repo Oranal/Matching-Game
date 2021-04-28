@@ -201,6 +201,14 @@ def games(request):
         django.setup()
         game = Board.objects.get_or_create(category=my_bag.get('category')[0], data=input_json_format_converter(my_bag.get('category')[1]))[0]
         game.save()
+    elif my_bag.get('user')['role'] == 'Child':
+        print(request.GET.values())
+        # import os
+        # import django
+        # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
+        # django.setup()
+        # user = Account.objects.get(username = my_bag.get('user')['username'])[0]
+        # user.rating += request.GET.values()
     # print(Board.objects.values('category') , "hhhhhhhhhhhhhhhhhhhh\n\n")
     return render(request, 'accounts/games.html', {'user':my_bag.get('user') , 'games': Board.objects.values('category')})
 
@@ -301,4 +309,3 @@ def difficulty(request):
             board[i].append(topics[i])
 
         return render(request, 'game/play.html',{'board': board, 'difficulty' : request.POST['difficulty'], 'user': my_bag.get('user')})
-

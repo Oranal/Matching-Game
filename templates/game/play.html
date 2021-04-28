@@ -32,18 +32,19 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <input type=hidden id="countdowntime" value={{difficulty}} />
+                        <form action="{% url 'games' %}" method="GET">
+                            <input type="button" id="countdowntime" value={{difficulty}}> click </input>
+                        </form>
                         <div id="countdown"></div>
-                        <input type=hidden id="role" value={{user.role}} />
                     </li>
                 </ul>
                 {% if user.role == 'Child'%}
-                    <ul class="nav navbar-nav navbar-left">
-                        <li id="hello">Hello {{user.first_name}} {{user.last_name}}</li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li id="rating">Total Rating: {{user.rating}} </li>
-                    </ul>
+                <ul class="nav navbar-nav navbar-left">
+                    <li id="hello">Hello {{user.first_name}} {{user.last_name}}</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="rating">Total Rating: {{user.rating}} </li>
+                </ul>
                 {% endif %}
             </div>
         </nav>
