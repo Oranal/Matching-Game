@@ -30,7 +30,8 @@ def login(request):
                 form1 = forms.ChildForm()
                 return render(request, 'accounts/institutions.html', {'user': user, 'form': form1, 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher')})
             elif user['role'] == 'Child':
-                return render(request, 'accounts/games.html', {'user': user, 'games': Board.objects.values('category')})
+                # todo
+                return render(request, 'accounts/games.html', {'user': user, 'games': listed_games(my_bag.get('user')['categories'].keys())})
             elif user['role'] == 'Administrator':
                 form1 = forms.KindergardenForm()
                 return render(request, 'accounts/admin_dashboard.html', {'form': form1, 'user': user, 'accounts': Account.objects.values('institution').distinct()})
@@ -211,6 +212,9 @@ def games(request):
         my_bag.get('user')['rating']+=int(request.GET['score'])
     if my_bag.get('user')['role'] == 'Kindergarden':
         return render(request, 'accounts/games.html', {'user':my_bag.get('user') , 'games': Board.objects.values('category'), 'categories' : listed_categories()})
+    if my_bag.get('user')['role'] == 'Child':
+        listed_games(my_bag.get('user')['categories'].keys())
+        return render(request, 'accounts/games.html', {'user':my_bag.get('user') , 'games': listed_games(my_bag.get('user')['categories'].keys())})
     return render(request, 'accounts/games.html', {'user':my_bag.get('user') , 'games': Board.objects.values('category')})
 
 def new_game(request):
@@ -301,7 +305,7 @@ def play_game(request):
             board.append(sample(card_data[topics[i]], 2))
             board[i].append(topics[i])
 
-        return render(request, 'game/play.html',{'board': board, 'user': my_bag.get('user')})
+        return render(request, 'game/play.html',{'board': board, 'difficulty':request.GET['difficulty'], 'user': my_bag.get('user')})
 
 def difficulty(request):
     if request.GET:
@@ -311,8 +315,6 @@ def difficulty(request):
                 break
         score = my_bag.get('user')['rating']
         my_bag.set('game', game)
-
-    
         return render(request, 'accounts/difficulty.html',{'user': my_bag.get('user'), 'score': score})
         
     else:
@@ -351,3 +353,11 @@ def jasonedCategories(categories,category):
 def jasonedScore(categories,category):
     categories[category] = "0"
     return categories
+
+def listed_games(categories):
+    result = []
+    for category in categories:
+        temp = {}
+        temp['category'] = category
+        result.append(temp)
+    return result
