@@ -1,9 +1,12 @@
 from django.test import TestCase 
+from django.test import tag
 from django.urls import resolve
 from django.urls import reverse
 from accounts.models import Account
+from accounts.apps import AccontsConfig
 from accounts.views import *
 
+@tag('unit-test')
 class AccountTestCase(TestCase):
     def setUp(self):
         self.kinder = Account.objects.get_or_create(
@@ -65,6 +68,12 @@ class AccountTestCase(TestCase):
         self.assertEqual(self.admin.institution, 'InstitutionTest')
         self.assertEqual(self.admin.role, 'Administrator')
 
+
+
+
+
+
+@tag('unit-test')
 class AccountsUrlsTest(TestCase):
     def test_admin_dashboard_url_resolved(self):
         #Act
@@ -176,4 +185,8 @@ class AccountsUrlsTest(TestCase):
 
 
 
-
+@tag('unit-test')
+class ProfileAppsTestCase(TestCase):
+    def test_apps_name(self):
+        #Assert
+        self.assertEqual(AccontsConfig.name, "acconts")
