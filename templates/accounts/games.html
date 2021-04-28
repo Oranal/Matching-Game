@@ -65,6 +65,7 @@
                     </form>
 
                 {% else %}
+            
                     <form action="{% url 'play_game' %}" method="get">
                         {% csrf_token %}
                         <label for="game">Choose game category</label>
@@ -82,6 +83,17 @@
                         <br>
                         <input type="submit" class="btn btn-primary"value="play">
                     </form>
+                    {% if user.role == 'Kindergarden' %}
+                    <br>
+                    <div class="container">
+                        <ul>My Games
+                            {% for category in categories %}
+                            <li> {{category}} </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>  

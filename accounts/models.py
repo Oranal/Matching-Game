@@ -13,6 +13,8 @@ class Account(models.Model):
     rating = models.IntegerField(null=True, blank=True)
     institution = models.CharField(max_length=60)
     role = models.CharField(max_length=15, choices=role_choices, default='Child')
+    categories = models.JSONField(default = {})
+
 
     def __str__(self):
         return self.username

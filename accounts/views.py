@@ -209,6 +209,8 @@ def games(request):
         user.rating = user.rating+int(request.GET['score'])
         user.save()
         my_bag.get('user')['rating']+=int(request.GET['score'])
+    if my_bag.get('user')['role'] == 'Kindergarden':
+        return render(request, 'accounts/games.html', {'user':my_bag.get('user') , 'games': Board.objects.values('category'), 'categories' : listed_categories()})
     return render(request, 'accounts/games.html', {'user':my_bag.get('user') , 'games': Board.objects.values('category')})
 
 def new_game(request):
@@ -309,3 +311,15 @@ def difficulty(request):
             board[i].append(topics[i])
 
         return render(request, 'game/play.html',{'board': board, 'difficulty' : request.POST['difficulty'], 'user': my_bag.get('user')})
+
+
+
+def score_board(request):
+    return render(request, 'accounts/score_board.html', {'user': my_bag.get('user')})
+
+
+def listed_categories():
+    result = []
+    for val in my_bag.get('user')['categories'].values():
+        result.append(val)
+    return result

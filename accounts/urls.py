@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^teacher_dashboard/teacher_details/$', views.teacher_details, name='teacher_details'),
     url(r'^child_delete/$',views.child_delete, name = 'child_delete'),
     url(r'^play_game/$',views.play_game, name = 'play_game'),
+    url(r'^score_board/$',views.score_board, name = 'score_board'),
 
 
 

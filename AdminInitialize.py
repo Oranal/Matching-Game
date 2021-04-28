@@ -8,5 +8,5 @@ django.setup()
 from accounts.models import *
 
 def admin():
-    admin = Account.objects.get_or_create(username='admin', password='admin', first_name='admin', last_name='admin', role='Administrator', institution='System')[0]
+    admin = Account.objects.get_or_create(username='admin', password='admin', first_name='admin', last_name='admin', role='Administrator', institution='System',categories = {})[0]
     admin.save()
