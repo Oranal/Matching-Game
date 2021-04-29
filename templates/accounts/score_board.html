@@ -43,6 +43,15 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <div class="search">
+                        <form class="form-inline my-2 my-lg-0 search" method="get" action="{% url 'search' %}">
+                            <input class="form-control mr-sm-2" type="search" aria-label="Search" name="name">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+                </ul>
             </div>
         </nav>    
         <div style="overflow-x:auto;">

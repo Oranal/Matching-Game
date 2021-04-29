@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^child_delete/$',views.child_delete, name = 'child_delete'),
     url(r'^play_game/$',views.play_game, name = 'play_game'),
     url(r'^score_board/$',views.score_board, name = 'score_board'),
+    url(r'^search/$',views.search, name = 'search'),
 
 ]

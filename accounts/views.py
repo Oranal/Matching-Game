@@ -377,3 +377,41 @@ def listed_players(data):
             each_user.append([key, value])
         users.append(each_user)
     return users
+
+def listed_players_helper(data):
+    new_data = []
+    for list_ in data:
+        for dict_ in list_:
+            new_data.append(dict_)
+    return new_data
+
+def search(request):
+    if request.GET:
+        users = []
+        name = request.GET['name'].split()
+        if len(name) == 1:
+            users.append(Account.objects.filter(role='Child', first_name=name[0], institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+        else:
+            for i in range(len(name) + 1):
+                first = ""
+                last = ""
+                for j in range(len(name)):
+                    if j < i:
+                        if first == "":
+                            first += name[j]
+                        else:
+                            first += " " + name[j]
+                    else:
+                        if last == "":
+                            last += name[j]
+                        else:
+                            last += " " + name[j]
+                if last == "":
+                    users.append(Account.objects.filter(role='Child', first_name=first, institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+                elif first == "":
+                    users.append(Account.objects.filter(role='Child', last_name=last, institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+                else:
+                    users.append(Account.objects.filter(role='Child', first_name=first, last_name=last, institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+        
+
+    return render(request, 'accounts/score_board.html', {'user': my_bag.get('user'), 'users': listed_players(listed_players_helper(users))})
