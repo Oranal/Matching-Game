@@ -339,7 +339,7 @@ def difficulty(request):
 
 
 def score_board(request):
-    return render(request, 'accounts/score_board.html', {'user': my_bag.get('user')})
+    return render(request, 'accounts/score_board.html', {'user': my_bag.get('user'), 'users':listed_players(Account.objects.all().filter(institution = my_bag.get('user')['institution'], role = "Child").values('first_name', 'last_name', 'rating', 'categories'))})
 
 
 def listed_categories():
@@ -367,3 +367,13 @@ def listed_games(categories):
 def updated_score_for_category(categories, category, score):
     categories[category] = str(int(categories[category])+score)
     return categories
+
+def listed_players(data):
+    users = []
+    for user in data:
+        each_user = []
+        each_user.append([user['first_name'] + " " + user['last_name'], user['rating']])
+        for key, value in user['categories'].items():
+            each_user.append([key, value])
+        users.append(each_user)
+    return users
