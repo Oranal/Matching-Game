@@ -391,6 +391,7 @@ def search(request):
         name = request.GET['name'].split()
         if len(name) == 1:
             users.append(Account.objects.filter(role='Child', first_name=name[0], institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+            users.append(Account.objects.filter(role='Child', last_name=name[0], institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
         else:
             for i in range(len(name) + 1):
                 first = ""
