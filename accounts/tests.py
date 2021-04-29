@@ -5,7 +5,7 @@ from django.urls import reverse
 from accounts.models import Account
 from accounts.apps import AccontsConfig
 from accounts.views import *
-from accounts.forms import FormLogin
+from accounts.forms import FormLogin,KindergardenForm
 
 @tag('unit-test')
 class AccountTestCase(TestCase):
@@ -195,9 +195,32 @@ class FormLoginTest(TestCase):
         #Assert
         self.assertTrue(self.form.fields['Password'].required)
 
+class KindergardenFormTest(TestCase):
+    def setUp(self):
+        self.form_data = {'FirstName' : 'FirstNameTest', 'LastName': 'LastNameTest'
+                         , 'Institution': 'InstitutionTest', 'role': 'RoleTest'}
+        self.form = KindergardenForm(data = self.form_data)
+
+    def test_FirstName_required(self):
+        #Assert
+        self.assertTrue(self.form.fields['FirstName'].required)
+    
+    def test_LastName_required(self):
+        #Assert
+        self.assertTrue(self.form.fields['LastName'].required)
+    
+    def test_Institution_required(self):
+        #Assert
+        self.assertTrue(self.form.fields['Institution'].required)
+
+    def test_role_required(self):
+        #Assert
+        self.assertTrue(self.form.fields['role'].required)
 
 
 
+
+        
 #TEST MODELS:
 
 
