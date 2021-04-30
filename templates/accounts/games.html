@@ -17,7 +17,7 @@
 
 <body>
     
-    {% if user %}
+    {% if user.role != 'error'%}
     
     <div class = "fullwrapper">
         <nav class="navbar navbar-inverse">
