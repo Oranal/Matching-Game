@@ -22,8 +22,15 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'teacher_dashboard' %}">{{user.role}}-Dashboard</a>
-            </div>
+                {% if user.role == "Administrator" %}
+                <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
+            {% else %}
+                {% if user.role == "Kindergarden"%}
+                    <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a>
+                {% else %}
+                    <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a>
+                {% endif %}
+            {% endif %}            </div>
             
             <ul class="nav navbar-nav">
                 <li class="active"><a href="">My Class</a></li>

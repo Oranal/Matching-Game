@@ -30,7 +30,6 @@ def login(request):
                 form1 = forms.ChildForm()
                 return render(request, 'accounts/institutions.html', {'user': user, 'form': form1, 'institution_name':my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details':my_bag.get('teacher')})
             elif user['role'] == 'Child':
-                # todo
                 return render(request, 'accounts/games.html', {'user': user, 'games': listed_games(my_bag.get('user')['categories'].keys())})
             elif user['role'] == 'Administrator':
                 form1 = forms.KindergardenForm()
@@ -83,13 +82,21 @@ def institutions(request):
         lastname_ = request.POST['LastName']
         username_ = request.POST['UserName']
         password_ = request.POST['Password']
+        categories_ = {}
+
+        if my_bag.get('user')['role'] == 'Kindergarden':
+            all_categories = my_bag.get('user')['categories']
+        else:
+            all_categories = my_bag.get('techer')['categories']
+        for category in all_categories.values():
+            categories_[category] = "0"
 
         import os
         import django
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'matching_game.settings')
         django.setup()
         try:
-            usr = Account.objects.get_or_create(first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=my_bag.get('teacher')['institution'], role=form.get_role(), rating = form.get_rating())[0]
+            usr = Account.objects.get_or_create(categories = categories_, first_name=firstname_, last_name=lastname_, username=username_, password=password_, institution=my_bag.get('teacher')['institution'], role=form.get_role(), rating = form.get_rating())[0]
             usr.save()
         except:
             print("\n\n\n", username_, "\n\n\n")
@@ -310,14 +317,13 @@ def play_game(request):
 
 def difficulty(request):
     if request.GET:
-        request.GET['game']
         for game in Board.objects.values():
             if game['category'] == request.GET['game']:
                 break
         score = my_bag.get('user')['rating']
         categoryscore = my_bag.get('user')['categories'][request.GET['game']]
         my_bag.set('game', game)
-        return render(request, 'accounts/difficulty.html',{'user': my_bag.get('user'), 'score': score, 'categoryscore':categoryscore, 'game':request.GET['game']})
+        return render(request, 'accounts/difficulty.html',{'user': my_bag.get('user'), 'score': score, 'categoryscore':int(categoryscore), 'game':request.GET['game']})
         
     else:
         
@@ -339,7 +345,9 @@ def difficulty(request):
 
 
 def score_board(request):
-    return render(request, 'accounts/score_board.html', {'user': my_bag.get('user'), 'users':listed_players(Account.objects.all().filter(institution = my_bag.get('user')['institution'], role = "Child").values('first_name', 'last_name', 'rating', 'categories'))})
+    if my_bag.get('user')['role'] == 'Kindergarden':
+        return render(request, 'accounts/score_board.html', {'user': my_bag.get('user'), 'users':listed_players(Account.objects.all().filter(institution = my_bag.get('user')['institution'], role = "Child").values('first_name', 'last_name', 'rating', 'categories'))})
+    else:return render(request, 'accounts/score_board.html', {'user': my_bag.get('user'), 'users':listed_players(Account.objects.all().filter(role = "Child").values('first_name', 'last_name', 'rating', 'categories'))})
 
 
 def listed_categories():
@@ -390,8 +398,12 @@ def search(request):
         users = []
         name = request.GET['name'].split()
         if len(name) == 1:
-            users.append(Account.objects.filter(role='Child', first_name=name[0], institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
-            users.append(Account.objects.filter(role='Child', last_name=name[0], institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+            if my_bag.get('user')['role'] == 'Kindergarden':
+                users.append(Account.objects.filter(role='Child', first_name=name[0], institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+                users.append(Account.objects.filter(role='Child', last_name=name[0], institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+            else:
+                users.append(Account.objects.filter(role='Child', first_name=name[0]).values('first_name', 'last_name', 'rating', 'categories'))
+                users.append(Account.objects.filter(role='Child', last_name=name[0]).values('first_name', 'last_name', 'rating', 'categories'))
         else:
             for i in range(len(name) + 1):
                 first = ""
@@ -408,11 +420,22 @@ def search(request):
                         else:
                             last += " " + name[j]
                 if last == "":
-                    users.append(Account.objects.filter(role='Child', first_name=first, institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+                    if my_bag.get('user')['role'] == 'Kindergarden':
+                        users.append(Account.objects.filter(role='Child', first_name=first, institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+                    else:
+                        users.append(Account.objects.filter(role='Child', first_name=first).values('first_name', 'last_name', 'rating', 'categories'))
                 elif first == "":
-                    users.append(Account.objects.filter(role='Child', last_name=last, institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+                    if my_bag.get('user')['role'] == 'Kindergarden':
+                        users.append(Account.objects.filter(role='Child', last_name=last, institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+                    else:
+                        users.append(Account.objects.filter(role='Child', last_name=last).values('first_name', 'last_name', 'rating', 'categories'))
+
                 else:
-                    users.append(Account.objects.filter(role='Child', first_name=first, last_name=last, institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+                    if my_bag.get('user')['role'] == 'Kindergarden':
+                        users.append(Account.objects.filter(role='Child', first_name=first, last_name=last, institution=my_bag.get('user')['institution']).values('first_name', 'last_name', 'rating', 'categories'))
+                    else:
+                        users.append(Account.objects.filter(role='Child', first_name=first, last_name=last).values('first_name', 'last_name', 'rating', 'categories'))
+                        
         
 
     return render(request, 'accounts/score_board.html', {'user': my_bag.get('user'), 'users': listed_players(listed_players_helper(users))})
