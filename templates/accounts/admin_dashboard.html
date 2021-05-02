@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 
@@ -16,49 +15,43 @@
 </head>
 
 <body>
-    
+
     {% if user.username == 'admin' %}
-    
-    <div class = "fullwrapper">
+
+    <div class="fullwrapper">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
                     {% if user.role == "Administrator" %}
-                        <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
-                    {% else %}
-                        {% if user.role == "Kindergarden"%}
-                            <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a>
-                        {% else %}
-                            <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a>
-                        {% endif %}
-                    {% endif %}
+                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a> {% else %} {% if user.role == "Kindergarden"%}
+                    <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a> {% else %}
+                    <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a> {% endif %} {% endif %}
                 </div>
-                
+
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="{% url 'games' %}">Games</a></li>
                 </ul>
-                
+
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
                 </ul>
             </div>
         </nav>
-    
-            <div class="institution">
-                <h2>Hello {{user.first_name}}</h2>
-                <div class="container">
-                    <h4 style="color: red">{{ errorMessage }}</h4>
-                    <form method="post" action ="{% url 'admin_dashboard' %}" >
-                        {{form.as_p}}
-                        {% csrf_token %}
-                        <input type="submit" class="btn btn-primary"value="הוסף מוסד">
-                    </form>
-                </div>
-            </div>
-            
-            
 
-            <!-- <div class="institdrop">
+        <div class="institution">
+            <h2>Hello {{user.first_name}}</h2>
+            <div class="container">
+                <h4 style="color: red">{{ errorMessage }}</h4>
+                <form method="post" action="{% url 'admin_dashboard' %}">
+                    {{form.as_p}} {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="הוסף מוסד">
+                </form>
+            </div>
+        </div>
+
+
+
+        <!-- <div class="institdrop">
             <div>
                 {% if accounts%}
             <button class="dropbtn">Institution</button>
@@ -74,7 +67,7 @@
         <br>
         <br>
         <div class="institdrop">
-            <div class = container>
+            <div class=c ontainer>
                 {% if accounts%}
                 <form action="{% url 'institutions'%}" method="get">
                     {% csrf_token %}
@@ -86,12 +79,12 @@
                         {% endif %}
                         {% endfor %}
                     </select>
-                    <input type="submit" class="btn btn-primary"value="Go">
+                    <input type="submit" class="btn btn-primary" value="Go">
                 </form>
                 {% endif %}
             </div>
-        </div>  
-        
+        </div>
+
         <ul class="bg-bubbles">
             <li></li>
             <li></li>
@@ -105,26 +98,26 @@
             <li></li>
         </ul>
     </div>
-        {% else %} 
-        <div class = 'fullwrapper'>
-            <h1>NO ACCESS
-                <br>
-                <br>
-                <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
-            </h1>
-            <ul class="bg-bubbles-error">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
+    {% else %}
+    <div class='fullwrapper'>
+        <h1>NO ACCESS
+            <br>
+            <br>
+            <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
+        </h1>
+        <ul class="bg-bubbles-error">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
     {% endif %}
 </body>
 
