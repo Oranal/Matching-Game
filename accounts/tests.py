@@ -176,7 +176,14 @@ class AccountsUrlsTest(TestCase):
         #Act
         url = reverse('score_board')
         #Assert
-        self.assertEqual(resolve(url).func,score_board)    
+        self.assertEqual(resolve(url).func,score_board)   
+
+    def test_search_url_resolved(self):
+        #Act
+        url = reverse('search')
+        #Assert
+        self.assertEqual(resolve(url).func,search)   
+         
             
 
 #TEST FORMS:
