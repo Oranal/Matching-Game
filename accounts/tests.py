@@ -301,6 +301,24 @@ class LoginTest(TestCase):
         # Assert
         self.assertIsNotNone(response.context['form'])
 
+    @tag('unit-test')
+    def test_administrator_login_user(self):
+        # Arrange
+        Account.objects.create(username='test_administrator_login_user_name',
+                               first_name='first name', last_name='last name',
+                               password="administratorPassword")
+        form_data = {'UserName': 'test_administrator_login_user_name',
+                     'Password': 'administratorPassword'}
+
+        # Act
+        response = self.client.post(
+            reverse('login'), data=form_data, follow=True)
+
+        # assert
+        self.assertEqual(response.status_code, 200)
+        # self.assertTrue(response.context['user'].is_authenticated)
+        # self.assertRedirects(response, reverse('admin_dashboard'))
+
 
 # TEST APP:
 
