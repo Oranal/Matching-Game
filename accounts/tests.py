@@ -328,6 +328,37 @@ class adminDashboardTest(TestCase):
     @tag('unit-test')
     def test_view_url_accessible_by_name(self):
         # Act
+        response = self.client.get(reverse(institutions))
+        # Assert
+        self.assertEqual(response.status_code, 200)
+
+    @tag('unit-test')
+    def test_view_uses_correct_template(self):
+        # Act
+        response = self.client.get(reverse('institutions'))
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/institutions.html')
+
+    @tag('unit-test')
+    def test_view_contains_form(self):
+        # Act
+        response = self.client.get(reverse('institutions'))
+        # Assert
+        self.assertIsNotNone(response.context['form'])
+
+
+class institutionsTest(TestCase):
+    @tag('unit-test')
+    def test_view_url_exists_at_desired_location(self):
+        # Act
+        response = self.client.get('')
+        # Assert
+        self.assertEqual(response.status_code, 200)
+
+    @tag('unit-test')
+    def test_view_url_accessible_by_name(self):
+        # Act
         response = self.client.get(reverse(admin_dashboard))
         # Assert
         self.assertEqual(response.status_code, 200)
@@ -349,7 +380,6 @@ class adminDashboardTest(TestCase):
 
 
 # TEST APP:
-
 
 @tag('unit-test')
 class ProfileAppsTestCase(TestCase):
