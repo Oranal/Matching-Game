@@ -317,7 +317,7 @@ class LoginTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class adminDashboardTest(TestCase):
+class institutionsTest(TestCase):
     @tag('unit-test')
     def test_view_url_exists_at_desired_location(self):
         # Act
@@ -348,7 +348,38 @@ class adminDashboardTest(TestCase):
         self.assertIsNotNone(response.context['form'])
 
 
-class institutionsTest(TestCase):
+class childTest(TestCase):
+    @tag('unit-test')
+    def test_view_url_exists_at_desired_location(self):
+        # Act
+        response = self.client.get('')
+        # Assert
+        self.assertEqual(response.status_code, 200)
+
+    @tag('unit-test')
+    def test_view_url_accessible_by_name(self):
+        # Act
+        response = self.client.get(reverse(child))
+        # Assert
+        self.assertEqual(response.status_code, 200)
+
+    @tag('unit-test')
+    def test_view_uses_correct_template(self):
+        # Act
+        response = self.client.get(reverse('child'))
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/games.html')
+
+    # @tag('unit-test')
+    # def test_view_contains_form(self):
+    #     # Act
+    #     response = self.client.get(reverse('ChildForm'))
+    #     # Assert
+    #     self.assertIsNotNone(response.context['form'])
+
+
+class adminDashboardTest(TestCase):
     @tag('unit-test')
     def test_view_url_exists_at_desired_location(self):
         # Act
