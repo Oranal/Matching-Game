@@ -31,7 +31,7 @@ pipeline {
             }
         }
 
-    post 
+    @post 
     {
 		failure{
 			mail to: 'olgrsy@gmail.com',
