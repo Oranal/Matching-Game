@@ -31,6 +31,19 @@ pipeline {
             }
         }
 
+        stage('Integration Tests') 
+        {
+            steps 
+            {
+					withEnv(["HOME=${env.WORKSPACE}"]) 
+                    {
+						sh "python -m coverage run -a manage.py test --tag=integration-test"
+					}
+				
+			}
+
+		}
+
 		
     }
     post{
