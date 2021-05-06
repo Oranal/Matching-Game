@@ -316,6 +316,19 @@ class LoginTest(TestCase):
         # assert
         self.assertEqual(response.status_code, 200)
 
+    #     @tag('unit-test')
+    # def test_view_signup_child(self):
+    #     # Arrange
+    #     form_data = {'first_name': 'first_nameTest',
+    #                  'last_name': 'last_nameTest', 'username': 'usernameTest', 'password': 'passwordTest'}
+    #     # Act
+    #     response = self.client.post('', data=form_data, follow=True)
+
+    #     # Assert
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertEqual(
+    #         len(Account.objects.filter(username='usernameTest')), 1)
+
 
 class institutionsTest(TestCase):
     @tag('unit-test')
