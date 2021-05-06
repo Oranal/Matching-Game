@@ -33,8 +33,7 @@ pipeline {
 
 		
     }
-    @post 
-    {
+    post{
 		failure{
 			mail to: 'olgrsy@gmail.com',
 			subject: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
