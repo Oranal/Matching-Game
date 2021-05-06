@@ -31,18 +31,17 @@ pipeline {
             }
         }
 
-        // stage('Integration Tests') 
-        // {
-        //     steps 
-        //     {
-		// 			withEnv(["HOME=${env.WORKSPACE}"]) 
-        //             {
-		// 				sh "python -m coverage run -a manage.py test --tag=integration-test"
-		// 			}
-				
-		// 	}
-
-		// }
+       stage('Metric 2 - pylint python code convention') {
+			steps {
+				{
+					withEnv(["HOME=${env.WORKSPACE}"]) {
+                        sh 'pip install pylint'
+                        sh 'pip install pylint-django'
+						sh 'python -m pylint  matching_game'
+					}
+				}
+			}
+		}
 
 		
     }
