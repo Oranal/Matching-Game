@@ -36,7 +36,7 @@ pipeline {
 					withEnv(["HOME=${env.WORKSPACE}"]) {
                         sh 'pip install pylint'
                         sh 'pip install pylint-django'
-						sh 'python -m pylint --fail-under=8 matching_game game accounts'
+						sh 'python -m pylint --fail-under=8 matching_game game accounts AdminInitialize.py'
 					}
 				
 			}
