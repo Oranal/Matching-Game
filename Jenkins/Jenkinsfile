@@ -4,7 +4,8 @@ pipeline {
             image 'python:3.9.1' 
         } 
     }
-    stages {
+    stages 
+    {
         stage('build') 
         {
             steps 
@@ -29,18 +30,21 @@ pipeline {
                 }
             }
         }
+
+    post 
+    {
+		failure{
+			mail to: 'olgrsy@gmail.com',
+			subject: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
+			body: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']: Check console output at '${env.BUILD_URL}' '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']"
+		}
+		success{
+			mailto: 'olgrsy@gmail.com',
+			subject: "SUCCESS: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
+			body: "SUCCESS: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']: Check console output at '${env.BUILD_URL}' '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']"
+		}
     }
-    // post {
-	// 	failure{
-	// 		mailto: 'barazenkot3@gmail.com',
-	// 		subject: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
-	// 		body: "Failed: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']: Check console output at '${env.BUILD_URL}' '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']"
-	// 	}
-	// 	success{
-	// 		mailto: 'barazenkot3@gmail.com',
-	// 		subject: "SUCCESS: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']",
-	// 		body: "SUCCESS: Job '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']: Check console output at '${env.BUILD_URL}' '${env.JOB_NAME}' ['${env.BUILD_NUMBER}']"
-	// 	}
 		
-	// }
+    }
+
 }
