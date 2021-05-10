@@ -120,7 +120,7 @@ font-size: 18px;
 
 
 .bg-bubbles {
-  position: relative;
+  /* position: relative; */
   top: 55px;
   left: 0;
   width: 100%;
