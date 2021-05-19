@@ -245,6 +245,7 @@ def games(request):
         if my_bag.get('user')['role'] == 'Child':
             listed_games(my_bag.get('user')['categories'].keys())
             return render(request, 'accounts/games.html', {'user':my_bag.get('user') , 'games': listed_games(my_bag.get('user')['categories'].keys())})
+        #TODO insert to an admin user enter per game amount...
         return render(request, 'accounts/games.html', {'user':my_bag.get('user') , 'games': Board.objects.values('category')})
     except:
         return render(request, 'accounts/games.html', {'user': {'role':'error'}})

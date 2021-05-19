@@ -66,24 +66,26 @@
         </div> -->
         <br>
         <br>
+        <!-- <div class="container"> -->
         <div class="institdrop">
-            <div class=c ontainer>
+            <div class="container">
                 {% if accounts%}
                 <form action="{% url 'institutions'%}" method="get">
                     {% csrf_token %}
                     <label for="institution">Choose an institution</label>
                     <select name="institution" id="institution">
-                        {% for inst in accounts %}
-                        {% if inst.institution != 'System'%}
-                        <option value={{inst.institution}}>{{inst.institution}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
+                            {% for inst in accounts %}
+                            {% if inst.institution != 'System'%}
+                            <option value={{inst.institution}}>{{inst.institution}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
                     <input type="submit" class="btn btn-primary" value="Go">
                 </form>
                 {% endif %}
             </div>
         </div>
+        <!-- </div> -->
 
         <ul class="bg-bubbles">
             <li></li>
