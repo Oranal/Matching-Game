@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 
@@ -16,39 +15,36 @@
 
 
 <body>
-    
+
     {% if user.username == 'admin' or user.role == 'Kindergarden'%}
-    
-    <div class = 'fullwrapper'>
+
+    <div class='fullwrapper'>
         <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                {% if user.role == "Administrator" %}
-                <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
-            {% else %}
-                {% if user.role == "Kindergarden"%}
-                    <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a>
-                {% else %}
-                    <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a>
-                {% endif %}
-            {% endif %}
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    {% if user.role == "Administrator" %}
+                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a> {% else %} {% if user.role == "Kindergarden"%}
+                    <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a> {% else %}
+                    <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a> {% endif %} {% endif %}
 
+                </div>
+
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{% url 'games' %}">Games</a></li>
+                    {% if user.role != "Child" %}
+                    <li class="active"><a href="{% url 'score_board' %}">Score-Board</a></li>
+                    {% endif %}
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+                </ul>
             </div>
-            
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'games' %}">Games</a></li>
-                <li class="active"><a href="{% url 'score_board' %}">Score-Board</a></li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
-            </ul>
-        </div>
         </nav>
 
 
-            
-            <div class="institution">
+
+        <div class="institution">
             {% if user.role == 'Administrator' %}
             <h2>Institution {{institution_name}}</h2>
             {% else %}
@@ -56,15 +52,14 @@
             {% endif %}
             <div class="container">
                 <h4 style="color: red">{{ errorMessage }}</h4>
-                <form method="post" action ="{% url 'institutions' %}" >
-                    {{form.as_p}}
-                    {% csrf_token %}
-                    <input type="submit" class="btn btn-primary"value="הוסף משתמש">
+                <form method="post" action="{% url 'institutions' %}">
+                    {{form.as_p}} {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="הוסף משתמש">
                 </form>
             </div>
         </div>
-        
-        
+
+
         <div class="institdrop">
             <div class="container">
                 {% if accounts%}
@@ -80,15 +75,15 @@
                         {% endif %}
                         {% endfor %}
                     </select>
-                    <input type="submit" class="btn btn-primary"value="Go">
+                    <input type="submit" class="btn btn-primary" value="Go">
                 </form>
                 {% endif %}
             </div>
-        </div> 
+        </div>
         <div class="teacher">
             <div class="container">
-                <form method = 'get' action="{% url 'teacher_details' %}">
-                    <h3>{{teacher_details.first_name}}'s details <input type="submit" class="btn btn-primary"value="עריכה"></h3>
+                <form method='get' action="{% url 'teacher_details' %}">
+                    <h3>{{teacher_details.first_name}}'s details <input type="submit" class="btn btn-primary" value="עריכה"></h3>
                     <br>
                     <h3>First name: {{teacher_details.first_name}}</h3>
                     <h3>Last name: {{teacher_details.last_name}}</h3>
@@ -110,15 +105,15 @@
             <li></li>
         </ul>
     </div>
-        
-        {% else %} 
-        <h1>NO ACCESS
-            <br>
-            <br>
-            <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
-        </h1>
-        
-        {% endif %}
-    </body>
-    
-    </html>
+
+    {% else %}
+    <h1>NO ACCESS
+        <br>
+        <br>
+        <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
+    </h1>
+
+    {% endif %}
+</body>
+
+</html>

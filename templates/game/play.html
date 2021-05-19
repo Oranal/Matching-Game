@@ -20,14 +20,9 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     {% if user.role == "Administrator" %}
-                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
-                {% else %}
-                    {% if user.role == "Kindergarden"%}
-                        <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a>
-                    {% else %}
-                        <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a>
-                    {% endif %}
-                {% endif %}                </div>
+                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a> {% else %} {% if user.role == "Kindergarden"%}
+                    <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a> {% else %}
+                    <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a> {% endif %} {% endif %} </div>
 
 
                 <ul class="nav navbar-nav navbar-right">
@@ -64,7 +59,7 @@
 
         </section>
         <form action="{% url 'games' %}" method="GET">
-            <input name = "score" type="submit" id="countdowntime" value = {{difficulty}}>
+            <input name="score" type="submit" id="countdowntime" value={ {difficulty}}>
         </form>
         <ul class="bg-bubbles">
             <li></li>

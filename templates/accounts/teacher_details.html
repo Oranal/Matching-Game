@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 
@@ -18,93 +17,90 @@
 <body>
 
     {% if user.username == 'admin' or user.role == 'Kindergarden' %}
-    <div class = 'fullwrapper'>
+    <div class='fullwrapper'>
 
-        
+
         <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                {% if user.role == "Administrator" %}
-                <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
-            {% else %}
-                {% if user.role == "Kindergarden"%}
-                    <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a>
-                {% else %}
-                    <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a>
-                {% endif %}
-            {% endif %}            </div>
-            
-            <ul class="nav navbar-nav">
-                 <li class="active"><a href="{% url 'games' %}">Games</a></li>
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
-            </ul>
-        </div>
-    </nav>
-    
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    {% if user.role == "Administrator" %}
+                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a> {% else %} {% if user.role == "Kindergarden"%}
+                    <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a> {% else %}
+                    <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a> {% endif %} {% endif %} </div>
+
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{% url 'games' %}">Games</a></li>
+                    {% if user.role != "Child" %}
+                    <li class="active"><a href="{% url 'score_board' %}">Score-Board</a></li>
+                    {% endif %}
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+                </ul>
+            </div>
+        </nav>
+
         <div class="institution">
             <h2>פרטי משתמש חדשים</h2>
             <div class="container">
-                <form method="post" action ="{% url 'teacher_details' %}" >
-                    {{form.as_p}}
-                    {% csrf_token %}
+                <form method="post" action="{% url 'teacher_details' %}">
+                    {{form.as_p}} {% csrf_token %}
                     <input type="submit" class="btn btn-primary" value="שמור שינויים">
                 </form>
             </div>
         </div>
-        
+
         <div class="old_teacher">
             <div class="container">
-                
-                    <h3>פרטי משתמש  עדכניים</h3>
-                    <h3>First name: {{teacher_details.first_name}}</h3>
-                    <h3>Last name: {{teacher_details.last_name}}</h3>
-                    <h3>User name: {{teacher_details.username}}</h3>
-                    <h3>Password: {{teacher_details.password}}</h3>
-                    <h3>Institution: {{teacher_details.institution}}</h3>
-                </div>
-                
-            </div>
-            <ul class="bg-bubbles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            
-        </div>
-            
-            {% else %} 
-            <div class='fullwrapper'>
-            
-                <ul class="bg-bubbles-error">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-                <h1>NO ACCESS
-                    <br>
-                    <br>
-                    <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
-                </h1>
+
+                <h3>פרטי משתמש עדכניים</h3>
+                <h3>First name: {{teacher_details.first_name}}</h3>
+                <h3>Last name: {{teacher_details.last_name}}</h3>
+                <h3>User name: {{teacher_details.username}}</h3>
+                <h3>Password: {{teacher_details.password}}</h3>
+                <h3>Institution: {{teacher_details.institution}}</h3>
             </div>
 
-        {% endif %}
+        </div>
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+    </div>
+
+    {% else %}
+    <div class='fullwrapper'>
+
+        <ul class="bg-bubbles-error">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <h1>NO ACCESS
+            <br>
+            <br>
+            <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
+        </h1>
+    </div>
+
+    {% endif %}
 </body>
 
 </html>

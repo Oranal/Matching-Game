@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 
@@ -16,48 +15,46 @@
 </head>
 
 <body>
-    
+
     {% if user %}
-    
-        <div class = "fullwrapper">
-            <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        {% if user.role == "Administrator" %}
-                        <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
-                        {% else %}
-                        {% if user.role == "Kindergarden"%}
-                            <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a>
-                        {% else %}
-                            <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a>
-                        {% endif %}
-                        {% endif %}
-                    </div>
-                
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="{% url 'games' %}">Games</a></li>
-                    </ul>
-                
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li id="rating">{{game}} Rating: {{categoryscore}} </li>
-                    </ul>
+
+    <div class="fullwrapper">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    {% if user.role == "Administrator" %}
+                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a> {% else %} {% if user.role == "Kindergarden"%}
+                    <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a> {% else %}
+                    <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a> {% endif %} {% endif %}
                 </div>
-            </nav>
-            <div class="institution">
-                <div class="diffcontainer">
-                    <h4 style="color: red">{{ errorMessage }}</h4>
-                    <form method="post" action ="{% url 'difficulty' %}" >
-                        {% csrf_token %}
-                        <div style = "display: flex; flex-direction: row-reverse; margin-right:20px;">
-                                <label style = "margin: 10px" for = 'easy'>
+
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{% url 'games' %}">Games</a></li>
+                    {% if user.role != "Child" %}
+                    <li class="active"><a href="{% url 'score_board' %}">Score-Board</a></li>
+                    {% endif %}
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="rating">{{game}} Rating: {{categoryscore}} </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="institution">
+            <div class="diffcontainer">
+                <h4 style="color: red">{{ errorMessage }}</h4>
+                <form method="post" action="{% url 'difficulty' %}">
+                    {% csrf_token %}
+                    <div style="display: flex; flex-direction: row-reverse; margin-right:20px;">
+                        <label style="margin: 10px" for='easy'>
                                     <input type="radio" class="btn btn-primary" name="difficulty" value="4" checked>
                                     <img src = '{% static "css/easy.png"%}'>
                                     <br>קל
                                 </label>
-                                <label style = "margin: 10px" for = 'normal'>
+                        <label style="margin: 10px" for='normal'>
                                     {% if categoryscore >= 500 %}
                                     <input type="radio" class="btn btn-primary" name="difficulty" value="6">
                                     {% else %}
@@ -66,8 +63,8 @@
                                     <img src = '{% static "css/medium.png"%}'>
                                     <br>בינוני
                                 </label>
-                            
-                                <label style = "margin: 10px" for = 'hard'>
+
+                        <label style="margin: 10px" for='hard'>
                                     {% if categoryscore >= 1000 %}
                                     <input type="radio" class="btn btn-primary" name="difficulty" value="8">
                                     {% else %}
@@ -77,15 +74,35 @@
                                     <br>קשה
                                 </label>
 
-                        </div>
-                        <br>
-                            <input type="submit" class="btn btn-primary"value="שחק">
-                    </form>
-                </div>
+                    </div>
+                    <br>
+                    <input type="submit" class="btn btn-primary" value="שחק">
+                </form>
             </div>
-        {% comment %} </div>   {% endcomment %}
-                    
-        <ul class="bg-bubbles">
+        </div>
+        {% comment %} </div> {% endcomment %}
+
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    </div>
+    {% else %}
+    <div class='fullwrapper'>
+        <h1>NO ACCESS
+            <br>
+            <br>
+            <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
+        </h1>
+        <ul class="bg-bubbles-error">
             <li></li>
             <li></li>
             <li></li>
@@ -98,26 +115,6 @@
             <li></li>
         </ul>
     </div>
-        {% else %} 
-        <div class = 'fullwrapper'>
-            <h1>NO ACCESS
-                <br>
-                <br>
-                <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
-            </h1>
-            <ul class="bg-bubbles-error">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
     {% endif %}
 </body>
 

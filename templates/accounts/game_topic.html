@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 
@@ -16,64 +15,59 @@
 </head>
 
 <body>
-    
+
     {% if user.username == 'admin' %}
-    
-    <div class = "fullwrapper">
+
+    <div class="fullwrapper">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
                     {% if user.role == "Administrator" %}
-                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
-                {% else %}
-                    {% if user.role == "Kindergarden"%}
-                        <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a>
-                    {% else %}
-                        <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a>
-                    {% endif %}
-                {% endif %}                </div>
-                
+                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a> {% else %} {% if user.role == "Kindergarden"%}
+                    <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a> {% else %}
+                    <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a> {% endif %} {% endif %} </div>
+
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="{% url 'games' %}">Games</a></li>
+                    {% if user.role != "Child" %}
+                    <li class="active"><a href="{% url 'score_board' %}">Score-Board</a></li>
+                    {% endif %}
+
                 </ul>
-                
+
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
                 </ul>
             </div>
         </nav>
-    
+
         <div class="institution">
             <div class="container">
                 {% if massage == 'first' %}
 
-                    <form method="post" action ="{% url 'game_topic' %}" >
-                        <input type="submit" class="btn btn-primary"value="הוסף קלפים">
-                        {{form.as_p}}
-                        {% csrf_token %}
-                    </form>
+                <form method="post" action="{% url 'game_topic' %}">
+                    <input type="submit" class="btn btn-primary" value="הוסף קלפים"> {{form.as_p}} {% csrf_token %}
+                </form>
 
                 {% else %}
 
-                    <form method="post" action ="{% url 'extra_card' %}" >
-                        <input type="submit" class="btn btn-primary"value="הוסף קלף" formaction ="{% url 'extra_card' %}">
-                        {{form.as_p}}
+                <form method="post" action="{% url 'extra_card' %}">
+                    <input type="submit" class="btn btn-primary" value="הוסף קלף" formaction="{% url 'extra_card' %}"> {{form.as_p}} {% csrf_token %}
+                </form>
+                <div>
+                    <form action="{% url 'game_info' %}" method="get">
                         {% csrf_token %}
+                        <input type="submit" class="btn btn-primary" value="סיים">
                     </form>
-                    <div>
-                        <form action="{% url 'game_info' %}" method="get">
-                            {% csrf_token %}
-                            <input type="submit" class="btn btn-primary"value="סיים">
-                        </form>
-                    </div>
-                    <!-- <form method = "get" action ="{% url 'done_extra' %}">
+                </div>
+                <!-- <form method = "get" action ="{% url 'done_extra' %}">
                         {% csrf_token %}
                     </form> -->
                 {% endif %}
             </div>
-        </div>      
+        </div>
 
-                    
+
         <ul class="bg-bubbles">
             <li></li>
             <li></li>
@@ -87,26 +81,26 @@
             <li></li>
         </ul>
     </div>
-        {% else %} 
-        <div class = 'fullwrapper'>
-            <h1>NO ACCESS
-                <br>
-                <br>
-                <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
-            </h1>
-            <ul class="bg-bubbles-error">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
+    {% else %}
+    <div class='fullwrapper'>
+        <h1>NO ACCESS
+            <br>
+            <br>
+            <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
+        </h1>
+        <ul class="bg-bubbles-error">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
     {% endif %}
 </body>
 

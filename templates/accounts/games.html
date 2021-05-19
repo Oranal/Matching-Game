@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 
@@ -16,98 +15,93 @@
 </head>
 
 <body>
-    
+
     {% if user.role != 'error'%}
-    
-    <div class = "fullwrapper">
+
+    <div class="fullwrapper">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
                     {% if user.role == "Administrator" %}
-                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a>
-                {% else %}
-                    {% if user.role == "Kindergarden"%}
-                        <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a>
-                    {% else %}
-                        <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a>
-                    {% endif %}
-                {% endif %}                </div>
-                
+                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">{{user.role}}-Dashboard</a> {% else %} {% if user.role == "Kindergarden"%}
+                    <a class="navbar-brand" href="{% url 'institutions' %}">{{user.role}}-Dashboard</a> {% else %}
+                    <a class="navbar-brand" href="{% url 'games' %}">{{user.role}}-Dashboard</a> {% endif %} {% endif %} </div>
+
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="{% url 'games' %}">Games</a></li>
+                    {% if user.role != "Child" %}
+                    <li class="active"><a href="{% url 'score_board' %}">Score-Board</a></li>
+                    {% endif %}
+
                 </ul>
-                
+
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
                 </ul>
             </div>
         </nav>
         {% if user.username == 'admin' %}
-            <div class="institution">
-                {% comment %} <h2>All Games</h2> {% endcomment %}
-                <div class="container">
-                    <h4 style="color: red">{{ errorMessage }}</h4>
-                    <form method="post" action ="{% url 'new_game' %}" >
-                        {% csrf_token %}
-                        <input type="submit" class="btn btn-primary"value="הוסף משחק">
-                    </form>
-                </div>
+        <div class="institution">
+            {% comment %}
+            <h2>All Games</h2> {% endcomment %}
+            <div class="container">
+                <h4 style="color: red">{{ errorMessage }}</h4>
+                <form method="post" action="{% url 'new_game' %}">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="הוסף משחק">
+                </form>
             </div>
+        </div>
         {% endif %}
 
-            <div class="diffdrop">
-            <div class = container>
-                {% comment %} {% if accounts%} {% endcomment %}
-                {% if user.role == 'Child' %}
+        <div class="diffdrop">
+            <div class=container>
+                {% comment %} {% if accounts%} {% endcomment %} {% if user.role == 'Child' %}
 
-                    <form action="{% url 'difficulty' %}" method="get">
-                        {% csrf_token %}
-                        <label for="game">Choose game category</label>
-                        <select name="game" id="game">
+                <form action="{% url 'difficulty' %}" method="get">
+                    {% csrf_token %}
+                    <label for="game">Choose game category</label>
+                    <select name="game" id="game">
                             {% for game in games %}
                             <option value={{game.category}}>{{game.category}}</option>
                             {% endfor %}
                         </select>
-                        <input type="submit" class="btn btn-primary"value="play">
-                    </form>
+                    <input type="submit" class="btn btn-primary" value="play">
+                </form>
 
                 {% else %}
-            
-                    <form action="{% url 'play_game' %}" method="get">
-                        {% csrf_token %}
-                        <label for="game">Choose game category</label>
-                        <select name="game" id="game">
+
+                <form action="{% url 'play_game' %}" method="get">
+                    {% csrf_token %}
+                    <label for="game">Choose game category</label>
+                    <select name="game" id="game">
                             {% for game in games %}
                             <option value={{game.category}}>{{game.category}}</option>
                             {% endfor %}
                         </select>
-                        <label for="difficulty">Choose game difficulty</label>
-                        <select name="difficulty" id="diff">
+                    <label for="difficulty">Choose game difficulty</label>
+                    <select name="difficulty" id="diff">
                             <option value='4'>קל</option>
                             <option value='6'>בינוני</option>
                             <option value='8'>קשה</option>
                         </select>
-                        <br>
-                        <input type="submit" name="play" class="btn btn-primary"value="play">
-                        {% if user.role == 'Kindergarden' %}
-                            <input type="submit" name="add" class="btn btn-primary"value="add">
-                        {% endif %}
-                    </form>
-                    {% if user.role == 'Kindergarden' %}
                     <br>
-                    <div class="container">
-                        <ul>My Games
-                            {% for category in categories %}
-                            <li> {{category}} </li>
-                            {% endfor %}
+                    <input type="submit" name="play" class="btn btn-primary" value="play"> {% if user.role == 'Kindergarden' %}
+                    <input type="submit" name="add" class="btn btn-primary" value="add"> {% endif %}
+                </form>
+                {% if user.role == 'Kindergarden' %}
+                <br>
+                <div class="container">
+                    <ul>My Games {% for category in categories %}
+                        <li> {{category}} </li>
+                        {% endfor %}
 
-                        </ul>
-                    </div>
-                    {% endif %}
-                {% endif %}
+                    </ul>
+                </div>
+                {% endif %} {% endif %}
             </div>
-        </div>  
-                    
+        </div>
+
         <ul class="bg-bubbles">
             <li></li>
             <li></li>
@@ -121,26 +115,26 @@
             <li></li>
         </ul>
     </div>
-        {% else %} 
-        <div class = 'fullwrapper'>
-            <h1>NO ACCESS
-                <br>
-                <br>
-                <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
-            </h1>
-            <ul class="bg-bubbles-error">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
+    {% else %}
+    <div class='fullwrapper'>
+        <h1>NO ACCESS
+            <br>
+            <br>
+            <a class="btn btn-primary" href="{% url 'login' %}">Back to Login</a>
+        </h1>
+        <ul class="bg-bubbles-error">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
     {% endif %}
 </body>
 
