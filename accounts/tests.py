@@ -4,7 +4,7 @@ from django.urls import resolve
 from django.urls import reverse
 from accounts.models import Account
 from accounts.apps import AccontsConfig
-from accounts.views import *
+from accounts.views import admin_dashboard, child_delete, child, difficulty, done_extra, extra_card, game_info, game_topic, games, institutions, teacher_dashboard, login, new_game, play_game, score_board, search, my_class, teacher_details
 from accounts.forms import FormLogin, KindergardenForm, ChildForm, ChildEditForm, SingleForm, DoubleForm
 
 
