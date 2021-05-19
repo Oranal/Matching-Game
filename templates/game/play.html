@@ -48,18 +48,26 @@
             </div>
         </nav>
         <section class="memory-game">
-            {% for couple in board%} {% for card in couple %} {% if card != couple.2 %}
+            {% for couple in board %}
+
             <div class="memory-card" data-framework={{couple.2}}>
-                <p class="front-face text-stroke">{{card}}</p>
+                <p class="front-face text-stroke">{{couple.0}}</p>
                 <div class="back-face">
                     <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
                 </div>
             </div>
-            {% endif %} {% endfor %} {% endfor %}
+            <div class="memory-card" data-framework={{couple.2}}>
+                <p class="front-face text-stroke">{{couple.1}}</p>
+                <div class="back-face">
+                    <img class="card-img" src="{% static 'css/cardback.png'%}" alt="JS Badge" />
+                </div>
+            </div>
+
+            {% endfor %}
 
         </section>
         <form action="{% url 'games' %}" method="GET">
-            <input name="score" type="submit" id="countdowntime" value={ {difficulty}}>
+            <input name="score" type="submit" id="countdowntime" value={{difficulty}}>
         </form>
         <ul class="bg-bubbles">
             <li></li>

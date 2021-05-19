@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready( function () {
+            $('#datatable').DataTable();
+        } );    
+    </script>
+    
     <link rel="stylesheet" type="text/css" href='{% static "css/admin.css"%}'>
 
     <title>{{user.role}}'s Page</title>
@@ -40,7 +49,7 @@
                 </ul>
             </div>
         </nav>
-        {% if user.username == 'admin' %}
+        {% if user.role == 'Administrator' %}
         <div class="institution">
             {% comment %}
             <h2>All Games</h2> {% endcomment %}
@@ -68,7 +77,6 @@
                         </select>
                     <input type="submit" class="btn btn-primary" value="play">
                 </form>
-
                 {% else %}
 
                 <form action="{% url 'play_game' %}" method="get">
@@ -86,9 +94,13 @@
                             <option value='8'>קשה</option>
                         </select>
                     <br>
-                    <input type="submit" name="play" class="btn btn-primary" value="play"> {% if user.role == 'Kindergarden' %}
+                    <input type="submit" name="play" class="btn btn-primary" value="play"> 
+                    <br>
+
+                    {% if user.role == 'Kindergarden' %}
                     <input type="submit" name="add" class="btn btn-primary" value="add"> {% endif %}
                 </form>
+
                 {% if user.role == 'Kindergarden' %}
                 <br>
                 <div class="container">
@@ -101,6 +113,28 @@
                 {% endif %} {% endif %}
             </div>
         </div>
+
+        {% if user.role == 'Administrator' %}
+
+        <div class = "container">
+            <table id = "datatable">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Played</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category, entrances in user.categories.items %}
+                    <tr>
+                        <td>{{category}}</td>
+                        <td>{{entrances}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
 
         <ul class="bg-bubbles">
             <li></li>

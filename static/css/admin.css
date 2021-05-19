@@ -358,3 +358,7 @@ input[type="radio"]:checked + img{
   font-size: 28px;
   padding-top: 2%;
 }
+
+.table-admin {
+  margin: top 10px;
+}

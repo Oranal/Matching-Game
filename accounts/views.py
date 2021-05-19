@@ -255,6 +255,7 @@ def games(request):
             user = Account.objects.get(role="Administrator")
             user.categories[my_bag.get('category')[0]] = "0"
             user.save()
+            my_bag.set('user', Account.objects.values().filter(role = "Administrator")[0])
         elif my_bag.get('user')['role'] == 'Child' and request.GET:
             import os
             import django
@@ -401,7 +402,9 @@ def play_game(request):
             for i in range(int(request.GET['difficulty'])):
                 board.append(sample(card_data[topics[i]], 2))
                 board[i].append(topics[i])
-
+            print(board)
+            
+            print(my_bag.get('user'))
             return render(request, 'game/play.html', {'board': board, 'difficulty': request.GET['difficulty'], 'user': my_bag.get('user')})
     except:
         return render(request, 'accounts/games.html', {'user': {'role': 'error'}})
