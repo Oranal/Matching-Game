@@ -406,6 +406,7 @@ def play_game(request):
                                 usr = Account.objects.get(
                                     username=user['username'])
                                 print(user['categories'])
+                                usr.rating -= int(usr.categories[request.GET['game']])
                                 usr.categories = removeCategoryFromChild(
                                     user['categories'], request.GET['game'])
                                 usr.save()
