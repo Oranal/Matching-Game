@@ -389,7 +389,29 @@ def play_game(request):
                 return render(request, 'accounts/games.html', {'user': my_bag.get('user'), 'games': Board.objects.values('category'), 'categories': listed_categories()})
             elif 'remove' in request.GET:
                 if request.GET['game'] in my_bag.get('user')['categories'].values():
+                    import os
+                    import django
+                    os.environ.setdefault(
+                        'DJANGO_SETTINGS_MODULE', 'matching_game.settings')
+                    django.setup()
+                    user = Account.objects.get(
+                        username=my_bag.get('user')['username'])
+                    user.categories = removeCategory(my_bag.get('user')['categories'], request.GET['game'])
+                    user.save()
+                    for user in Account.objects.values():
+                        if user['institution'] == my_bag.get('user')['institution']:
+                            if user['username'] == my_bag.get('user')['username']:
+                                my_bag.set('user', user)
+                            else:
+                                usr = Account.objects.get(
+                                    username=user['username'])
+                                print(user['categories'])
+                                usr.categories = removeCategoryFromChild(
+                                    user['categories'], request.GET['game'])
+                                usr.save()
+                                
                     print('update')
+                    return render(request, 'accounts/games.html', {'message':request.GET['game']+" successfully removed from your library", 'user': my_bag.get('user'), 'games': Board.objects.values('category'), 'categories': listed_categories()})
                 else:
                     return render(request, 'accounts/games.html', {'message':request.GET['game']+" is not in your library", 'user': my_bag.get('user'), 'games': Board.objects.values('category'), 'categories': listed_categories()})
 
@@ -566,3 +588,22 @@ def listed_players_helper(data):
         for dict_ in list_:
             new_data.append(dict_)
     return new_data
+
+
+def removeCategory(categories, category):
+    temp = {}
+    avoid_key = "-1"
+    flag = False
+    for key, value in categories.items():
+        if value == category:
+            flag = True
+        elif flag:
+            temp[str(int(key) - 1)] = value
+        else:
+            temp[key] = value
+    return temp
+    
+def removeCategoryFromChild(categories, category):
+    temp = categories
+    del temp[category]
+    return temp
