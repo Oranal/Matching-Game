@@ -98,11 +98,15 @@
                     <br>
 
                     {% if user.role == 'Kindergarden' %}
-                    <input type="submit" name="add" class="btn btn-primary" value="add"> {% endif %}
+                    <input type="submit" name="add" class="btn btn-primary" value="add">
+                    <input type="submit" name="remove" class="btn btn-primary" value="remove"> {% endif %}
                 </form>
 
                 {% if user.role == 'Kindergarden' %}
                 <br>
+                <div style = "color:#730a0a; font-size: 16px;">
+                    {{message}}
+                </div>
                 <div class="container">
                     <ul>My Games {% for category in categories %}
                         <li> {{category}} </li>

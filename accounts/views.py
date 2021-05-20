@@ -113,7 +113,6 @@ def institutions(request):
                                                     password=password_, institution=my_bag.get('teacher')['institution'], role=form.get_role(), rating=form.get_rating())[0]
                 usr.save()
             except:
-                print("\n\n\n", username_, "\n\n\n")
                 return render(request, 'accounts/institutions.html', {'form': form, 'user': my_bag.get('user'), 'institution_name': my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details': my_bag.get('teacher'), 'errorMessage': 'Username is already exists!'})
         return render(request, 'accounts/institutions.html', {'form': form, 'user': my_bag.get('user'), 'institution_name': my_bag.get('institution'), 'accounts': Account.objects.values(), 'teacher_details': my_bag.get('teacher')})
     except:
@@ -128,7 +127,7 @@ def child(request):
                     my_bag.set('child', child_details)
                     break
         form = forms.ChildEditForm(initial={'UserName': my_bag.get('child')['username'], 'Password': my_bag.get('child')['password'], 'FirstName': my_bag.get('child')[
-                                   'first_name'], 'LastName': my_bag.get('child')['last_name'], 'rating': my_bag.get('child')['rating'], 'Institution': my_bag.get('child')['institution']})
+                                   'first_name'], 'LastName': my_bag.get('child')['last_name'], 'Institution': my_bag.get('child')['institution']})
         if request.POST:
             firstname_ = request.POST['FirstName']
             lastname_ = request.POST['LastName']
@@ -147,14 +146,19 @@ def child(request):
             usr.last_name = lastname_
             usr.password = password_
             usr.institution = institution_
-            usr.rating = rating_
+            # todo
+            usr.rating = 0
+            usr.categories[request.POST['category']]=rating_
+            for category_rate in usr.categories.values():
+                usr.rating+=int(category_rate)
+            # usr.rating = rating_
             usr.save()
             for child_details in Account.objects.values():
                 if child_details['username'] == username_:
                     my_bag.set('child', child_details)
                     break
             form = forms.ChildEditForm(initial={'UserName': my_bag.get('child')['username'], 'Password': my_bag.get('child')['password'], 'FirstName': my_bag.get('child')[
-                                       'first_name'], 'LastName': my_bag.get('child')['last_name'], 'rating': my_bag.get('child')['rating'], 'Institution': my_bag.get('child')['institution']})
+                                       'first_name'], 'LastName': my_bag.get('child')['last_name'], 'Institution': my_bag.get('child')['institution']})
 
         return render(request, 'accounts/child.html', {'form': form, 'user': my_bag.get('user'), 'institution_name': my_bag.get('institution'), 'child_details': my_bag.get('child')})
     except:
@@ -182,7 +186,7 @@ def teacher_details(request):
 
         # form = forms.KindergardenForm()
         if request.GET:
-            print('get\n')
+            print("")
         elif request.POST:
             firstname_ = request.POST['FirstName']
             lastname_ = request.POST['LastName']
@@ -377,16 +381,19 @@ def play_game(request):
                             if user['username'] == my_bag.get('user')['username']:
                                 my_bag.set('user', user)
                             else:
-                                print(user)
                                 usr = Account.objects.get(
                                     username=user['username'])
                                 usr.categories = jasonedScore(
                                     user['categories'], request.GET['game'])
                                 usr.save()
                 return render(request, 'accounts/games.html', {'user': my_bag.get('user'), 'games': Board.objects.values('category'), 'categories': listed_categories()})
+            elif 'remove' in request.GET:
+                if request.GET['game'] in my_bag.get('user')['categories'].values():
+                    print('update')
+                else:
+                    return render(request, 'accounts/games.html', {'message':request.GET['game']+" is not in your library", 'user': my_bag.get('user'), 'games': Board.objects.values('category'), 'categories': listed_categories()})
 
             request.GET['game']
-            print("here \n\n\n")
             for game in Board.objects.values():
                 if game['category'] == request.GET['game']:
                     break
@@ -402,9 +409,7 @@ def play_game(request):
             for i in range(int(request.GET['difficulty'])):
                 board.append(sample(card_data[topics[i]], 2))
                 board[i].append(topics[i])
-            print(board)
             
-            print(my_bag.get('user'))
             return render(request, 'game/play.html', {'board': board, 'difficulty': request.GET['difficulty'], 'user': my_bag.get('user')})
     except:
         return render(request, 'accounts/games.html', {'user': {'role': 'error'}})

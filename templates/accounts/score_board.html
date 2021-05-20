@@ -12,6 +12,15 @@
     <link rel="stylesheet" type="text/css" href='{% static "css/admin.css"%}'>
     <link rel="stylesheet" type="text/css" href='{% static "css/table.css"%}'>
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready( function () {
+            $('#datatable').DataTable();
+        } );    
+    </script>
+
     <title>{{user.role}}'s Page</title>
 </head>
 
@@ -40,16 +49,55 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <!-- <ul class="nav navbar-nav navbar-right">
                     <div class="search">
                         <form class="form-inline my-2 my-lg-0 search" method="get" action="{% url 'search' %}">
                             <input class="form-control mr-sm-2" type="search" aria-label="Search" name="name"> {% csrf_token %}
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </form>
                     </div>
-                </ul>
+                </ul> -->
             </div>
         </nav>
+
+
+        <div class = "score-board">
+            <table id = "datatable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Total</th>
+                        {% for each_category in users.0 %} {% if each_category.0 != users.0.0.0 %}
+                            <th>{{each_category.0}}</th>
+                        {% endif %} {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for each_user in users %}
+                    <tr>
+                        <td>{{each_user.0.0}}</td>
+                        <td>{{each_user.0.1}}</td>
+                        {% for each_category in each_user%} {% if each_category.0 != each_user.0.0 %}
+                        <td>
+                            {{each_category.1}}
+                        </td>
+                        {% endif %} {% endfor %}
+                    </tr>
+                    {% endfor %}
+
+                    <!-- {% for category, entrances in user.categories.items %}
+                    <tr>
+                        <td>{{category}}</td>
+                        <td>{{entrances}}</td>
+                    </tr>
+                    {% endfor %} -->
+                </tbody>
+            </table>
+        </div>
+
+
+<!--         
         <div style="overflow-x:auto;">
             <table>
                 <tr>
@@ -72,7 +120,7 @@
                 {% endfor %}
 
             </table>
-        </div>
+        </div> -->
 
 
 

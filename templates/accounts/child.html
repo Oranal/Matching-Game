@@ -47,16 +47,28 @@
             <div class="container">
                 <form method="post" action="{% url 'child' %}">
                     {{form.as_p}} {% csrf_token %}
+                    <label for="category">Choose an category</label>
+                    <select name="category" id="category">
+                            {% for cat in child_details.categories %}
+                            <option value={{cat}}>{{cat}}</option>
+                            {% endfor %}
+                        </select>
+                    <input type="submit" class="btn btn-primary" value="Go">
+                    <br>
+                    <br>
                     <input type="submit" class="btn btn-primary" value="שמור שינויים">
                 </form>
 
                 <form method="GET" action="{% url 'child_delete' %}">
                     {% csrf_token %}
+                    <br>
                     <input type="submit" class="btn btn-primary" value="מחק משתמש">
                 </form>
             </div>
         </div>
-
+        <br>
+        <br>
+        <br>
         <div class="old_teacher">
             <div class="container">
 
