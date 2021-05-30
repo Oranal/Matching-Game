@@ -300,7 +300,7 @@ class LoginTest(TestCase):
         # Assert
         self.assertIsNotNone(response.context['form'])
 
-    @tag('unit-test')
+    @tag('integration-test') #integration test No1
     def test_administrator_login_user(self):
         # Arrange
         Account.objects.create(username='test_administrator_login_user_name',
@@ -316,17 +316,42 @@ class LoginTest(TestCase):
         # assert
         self.assertEqual(response.status_code, 200)
 
-    #     @tag('unit-test')
-    # def test_view_signup_child(self):
-    #     # Arrange
-    #      Account.objects.create(username='usernameTest', first_name='first name',
-    #                             last_name='last name', password="ChildPassword")
-    #     form_data = {'username': 'usernameTest','password': 'ChildPassword'}
-    #     # Act
-    #     response = self.client.post('login', data=form_data, follow=True)
+    @tag('integration-test')  #integration test No2
+    def test_view_signup_child(self):
+        # Arrange
+        form_data = {'username': 'usernameTest','password': 'ChildPassword'}
 
-    #     # Assert
-    #     self.assertEqual(response.status_code, 200)
+        # Act
+        response = self.client.post('/signup/', data=form_data, follow=True)
+
+        # Assert
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(len(Account.objects.filter(username='usernameTest')), 0)
+
+    
+    @tag('integration-test')
+    def test_child_sign_up_and_login(self):
+        # Arrange
+        sign_up_form_data = {'username': 'childUserNameTest', 'password': 'childPasswordTest', 
+                          'first_name': 'childFirstNameTest','last_name': 'childLastNameTest'}
+        
+        login_form_data = {'username': 'childUserNameTest', 'password': 'childPasswordTest'}
+
+        # Act
+        response = self.client.post(reverse(institutions), data=sign_up_form_data, follow=True)
+
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        # print(len(Account.objects.filter(username='childFirstNameTest')),"\n\n\n")
+        self.assertTrue(len(Account.objects.filter(username='childFirstNameTest')) ==0)
+
+        # Act
+        response = self.client.post(reverse('institutions'), data=login_form_data, follow=True)
+
+        # Assert
+        self.assertTemplateUsed(response, 'accounts/games.html')
+        # self.assertRedirects(response, reverse(institutions))
+        # self.assertTrue(response.context['user'].is_authenticated)
 
 
 class institutionsTest(TestCase):
