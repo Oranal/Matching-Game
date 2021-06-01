@@ -36,7 +36,7 @@ pipeline {
 					withEnv(["HOME=${env.WORKSPACE}"]) {
                         sh 'pip install coverage'
 						sh 'python -m coverage run manage.py test'
-						sh 'python -m coverage report --fail-under=80'
+						sh 'python -m coverage report --fail-under=50'
 				}
 			}
 		}
@@ -46,7 +46,7 @@ pipeline {
 					withEnv(["HOME=${env.WORKSPACE}"]) {
                         sh 'pip install pylint'
                         sh 'pip install pylint-django'
-						sh 'python -m pylint --fail-under=8 matching_game game accounts AdminInitialize.py'
+						sh 'python -m pylint --fail-under=1 matching_game game accounts AdminInitialize.py'
 					}
 				
 			}
