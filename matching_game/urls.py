@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.conf.urls import url, include
-from accounts import urls, views as accounts_views
-from game import urls, views
+from accounts import views as accounts_views
+from game import urls
 
 
 urlpatterns = [
