@@ -4,7 +4,6 @@ const startingMinutes = parseInt(document.getElementById('countdowntime').value)
 
 let time = startingMinutes * 60;
 
-// alert(countdownEl);
 
 let timerInterval = setInterval(updateCountdown, 1000);
 
@@ -90,7 +89,6 @@ function resetBoard() {
                 clearInterval(timerInterval);
                 setTimeout(() => {
                     document.getElementById('countdowntime').value = Math.max(time, 0);
-                    // document.getElementById('countdowntime').type = 'submit';
                     document.getElementById('countdowntime').click();
                 }, 2000)
             }

@@ -15,7 +15,7 @@ class Account(models.Model):
     institution = models.CharField(max_length=60)
     role = models.CharField(
         max_length=15, choices=role_choices, default='Child')
-    categories = models.JSONField(default={})
+    categories = models.JSONField(default=dict)
 
     def __str__(self):
         return self.username
