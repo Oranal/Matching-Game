@@ -23,7 +23,7 @@ def login(request):
                 my_bag.set('user', user)
                 break
         if not connect:
-            return render(request, 'accounts/login.html', {'form': form, 'error_message': 'invalid username or password'})
+            return render(request,'accounts/login.html', {'form': form, 'error_message': 'invalid username or password'})
         else:
             if user['role'] == 'Kindergarden':
                 my_bag.set('institution', user['institution'])
@@ -42,9 +42,7 @@ def login(request):
 def admin_dashboard(request):
     try:
         form = forms.KindergardenForm()
-        # for user in Account.objects.values():
-        #         if user['username'] == 'admin':
-        #             break
+
         if request.POST:
             firstname_ = request.POST['FirstName']
             lastname_ = request.POST['LastName']
@@ -146,12 +144,11 @@ def child(request):
             usr.last_name = lastname_
             usr.password = password_
             usr.institution = institution_
-            # todo
             usr.rating = 0
             usr.categories[request.POST['category']]=rating_
             for category_rate in usr.categories.values():
                 usr.rating+=int(category_rate)
-            # usr.rating = rating_
+                
             usr.save()
             for child_details in Account.objects.values():
                 if child_details['username'] == username_:
@@ -184,7 +181,6 @@ def teacher_details(request):
         form = forms.KindergardenForm(initial={'UserName': my_bag.get('teacher')['username'], 'Password': my_bag.get('teacher')['password'], 'FirstName': my_bag.get(
             'teacher')['first_name'], 'LastName': my_bag.get('teacher')['last_name'], 'Institution': my_bag.get('teacher')['institution']})
 
-        # form = forms.KindergardenForm()
         if request.GET:
             print("")
         elif request.POST:
@@ -199,9 +195,6 @@ def teacher_details(request):
             os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                                   'matching_game.settings')
             django.setup()
-            # for usr in Account.objects.values():
-            #     if usr['username'] == my_bag.get('teacher')['username']:
-            #         break
             usr = Account.objects.get(
                 username=my_bag.get('teacher')['username'])
             usr.username = username_
@@ -347,7 +340,7 @@ def done_extra(request):
         return render(request, 'accounts/games.html', {'user': {'role': 'error'}})
 
 
-def input_json_format_converter(input_game):
+def input_json_format_converter(request,input_game):
     try:
         json_format = {}
         for key in input_game.keys():
