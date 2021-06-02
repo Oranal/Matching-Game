@@ -380,6 +380,33 @@ class LoginTest(TestCase):
 
 
 
+    @tag('integration-test')  #integration test No5
+    def test_login_and_logout_admin(self):
+        # Arrange
+        Account.objects.create(username = 'adminUserNameTest', 
+                                        password= 'adminPasswordTest', 
+                                        first_name= 'adminFirstNameTest', 
+                                        last_name= 'adminLastNameTest',
+                                        role = 'admin')
+
+                                      
+        login_form_data = {'username': 'adminUserNameTest', 'password': 'adminPasswordTest'}
+
+        # Act
+        response = self.client.post(reverse('institutions'), data=login_form_data, follow=True)
+
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/games.html')
+        # self.assertRedirects(response, reverse('accounts/admin_dashboard.html'))
+        # self.assertTrue(response.context['user'].is_authenticated)
+
+        # Act
+        response = self.client.get("/accounts/login/", follow=True)
+
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        # self.assertFalse(response.context["user"].is_authenticated)
 
 class institutionsTest(TestCase):
     @tag('unit-test')
