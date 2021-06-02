@@ -329,7 +329,7 @@ class LoginTest(TestCase):
         self.assertEqual(len(Account.objects.filter(username='usernameTest')), 0)
 
     
-    @tag('integration-test')
+    @tag('integration-test')  #integration test No3
     def test_child_sign_up_and_login(self):
         # Arrange
         sign_up_form_data = {'username': 'childUserNameTest', 'password': 'childPasswordTest', 
@@ -352,6 +352,33 @@ class LoginTest(TestCase):
         self.assertTemplateUsed(response, 'accounts/games.html')
         # self.assertRedirects(response, reverse(institutions))
         # self.assertTrue(response.context['user'].is_authenticated)
+
+
+    @tag('integration-test')  #integration test No4
+    def test_teacher_sign_up_and_login(self):
+        # Arrange
+        sign_up_form_data = {'username': 'teacherUserNameTest', 'password': 'teacherPasswordTest', 
+                          'first_name': 'teacherFirstNameTest','last_name': 'teacherLastNameTest'}
+        
+        login_form_data = {'username': 'teacherUserNameTest', 'password': 'teacherPasswordTest'}
+
+        # Act
+        response = self.client.post(reverse(institutions), data=sign_up_form_data, follow=True)
+
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        # print(len(Account.objects.filter(username='childFirstNameTest')),"\n\n\n")
+        self.assertTrue(len(Account.objects.filter(username='teacherFirstNameTest')) ==0)
+
+        # Act
+        response = self.client.post(reverse('institutions'), data=login_form_data, follow=True)
+
+        # Assert
+        self.assertTemplateUsed(response, 'accounts/games.html')
+        # self.assertRedirects(response, reverse(institutions))
+        # self.assertTrue(response.context['user'].is_authenticated)
+
+
 
 
 class institutionsTest(TestCase):
