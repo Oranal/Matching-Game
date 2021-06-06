@@ -340,19 +340,15 @@ def done_extra(request):
         return render(request, 'accounts/games.html', {'user': {'role': 'error'}})
 
 
-def input_json_format_converter(request,input_game):
-    try:
-        json_format = {}
-        for key in input_game.keys():
-            json_format[key] = {}
-            i = 0
-            for card in input_game[key]:
-                json_format[key][str(i)] = card
-                i += 1
-        return json_format
-    except:
-        return render(request, 'accounts/games.html', {'user': {'role': 'error'}})
-
+def input_json_format_converter(input_game):
+    json_format = {}
+    for key in input_game.keys():
+        json_format[key] = {}
+        i = 0
+        for card in input_game[key]:
+            json_format[key][str(i)] = card
+            i += 1
+    return json_format
 
 def play_game(request):
     try:
